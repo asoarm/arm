@@ -202,8 +202,10 @@
 }
 - (IBAction)data:(id)sender
 {
+    //NotesSettingControllerのインスタンスを生成
     _settingsController = [[NotesSettingsController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_settingsController];
+    //_settingControllerへ画面遷移
     [self presentViewController:nav animated:YES completion:nil];
 }
 @end
