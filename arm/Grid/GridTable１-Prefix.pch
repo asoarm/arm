@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'GridTable' target in the 'GridTable' project
+//Prefix.pch　このファイルに、指定しているとヘッダーファイルで呼び出さなくても使える　例）よく使う名前やURL
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif
+
+#import <QuartzCore/QuartzCore.h>
