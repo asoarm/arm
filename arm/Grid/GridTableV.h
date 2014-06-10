@@ -19,7 +19,7 @@ typedef void(^RowRenderer)(UITableViewCell *cell, int rowIndex);
 @property(nonatomic, retain) NSMutableArray *cols2;
 @property(nonatomic, retain) NSMutableArray *sqldata;
 @property int omidashi_i;
-@property int datak;
+@property int columnsuu;
 //行全体の加工
 @property(nonatomic, assign) RowRenderer rowRenderer;
 @property(nonatomic, retain) NSMutableArray *qd_name;

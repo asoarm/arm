@@ -122,7 +122,7 @@
     grid.q_id = que.q_id;
     grid.q_name = que.q_name;
     int k = 0;
-    grid.datak = k;
+    grid.columnsuu = k;
     [self.navigationController pushViewController: grid animated:YES];
 }
 @end
