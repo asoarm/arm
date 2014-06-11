@@ -150,7 +150,7 @@
         [alertView show];
     }
 }
-//追加1
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

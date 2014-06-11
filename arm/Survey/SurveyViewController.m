@@ -80,7 +80,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    //追加1
+    
     [super viewWillAppear:animated];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -481,7 +481,6 @@
     [[button layer] setCornerRadius:7.5];
     [button setClipsToBounds:YES];
 }
-//追加1
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -581,7 +580,6 @@
     {
         Answer * answer = [[Answer alloc] init];
         answer.ans_cho= [rs stringForColumn:@"ans_cho"];
-        NSLog(@"ans_cho=%@",answer.ans_cho);
         answer.memo = [rs stringForColumn:@"memo"];
         memo.text = answer.memo;
         [mAnswer addObject:answer];

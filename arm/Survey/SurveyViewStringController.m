@@ -70,7 +70,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    //追加1
+
     [super viewWillAppear:animated];
     
     _flg = YES;
@@ -170,7 +170,7 @@
 -(void)onSingleTap:(UITapGestureRecognizer *)recognizer {
     
     [self.answer_str resignFirstResponder];
-    //追加1
+    
     [self.memo resignFirstResponder];
     
 }
@@ -352,7 +352,7 @@
     }
 }
 
-//追加1
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -438,7 +438,6 @@
     {
         Answer * answer = [[Answer alloc] init];
         answer.ans_str= [rs stringForColumn:@"ans_str"];
-        NSLog(@"ans_str=%@",answer.ans_str);
         answer.memo = [rs stringForColumn:@"memo"];
         answer_str.text = answer.ans_str;
         memo.text = answer.memo;

@@ -44,40 +44,7 @@
 {
     //団体区分が行政の団体をDBから取り出す処理
     self.title = @"団体一覧";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    NSString*   sql = @"SELECT * FROM Enterprise WHERE division = \"行政\";";
-    FMResultSet*    rs = [db executeQuery:sql];
-    mEnterprise= [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Enterprise * enterprise = [[Enterprise alloc] init];
-        enterprise.division = [rs stringForColumn:@"division"];
-        enterprise.e_id = [rs stringForColumn:@"e_id"];
-        enterprise.e_name = [rs stringForColumn:@"e_name"];
-        [mEnterprise addObject:enterprise];
-    }
-    
-    [rs close];
-    [db close];
-    
+    [self selectEnterprise];
     [self.tableView reloadData];
 }
 
@@ -134,6 +101,43 @@
     Enterprise *enterprise = [mEnterprise objectAtIndex:indexPath.row];
     surveyvc.enterprise= enterprise;
     [self.navigationController pushViewController:surveyvc  animated:YES];
+}
+
+-(void)selectEnterprise{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    NSString*   sql = @"SELECT * FROM Enterprise WHERE division = \"行政\";";
+    FMResultSet*    rs = [db executeQuery:sql];
+    mEnterprise= [[NSMutableArray alloc] init];
+    while( [rs next] )
+    {
+        Enterprise * enterprise = [[Enterprise alloc] init];
+        enterprise.division = [rs stringForColumn:@"division"];
+        enterprise.e_id = [rs stringForColumn:@"e_id"];
+        enterprise.e_name = [rs stringForColumn:@"e_name"];
+        [mEnterprise addObject:enterprise];
+    }
+    
+    [rs close];
+    [db close];
+
 }
 
 - (IBAction)back:(id)sender {
