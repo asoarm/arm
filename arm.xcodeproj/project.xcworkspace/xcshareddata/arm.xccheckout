@@ -5,19 +5,71 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>B4E74ABB-3EAF-4AF1-9BE1-1055A8E14E3F</string>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+	<string>6CE271FD-C7E5-4E29-85FF-C165E1AC3F86</string>
+=======
+	<string>1641F0FD-47E4-4F7C-A851-F7FA35A99995</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>1641F0FD-47E4-4F7C-A851-F7FA35A99995</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>1641F0FD-47E4-4F7C-A851-F7FA35A99995</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>1641F0FD-47E4-4F7C-A851-F7FA35A99995</string>
+>>>>>>> FETCH_HEAD
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectName</key>
 	<string>arm</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+=======
 		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
 		<string>https://github.com/asoarm/arm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>arm.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+=======
 		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
+=======
+		<key>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</key>
+>>>>>>> FETCH_HEAD
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +77,46 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+	<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+=======
 	<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+	<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+			<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+=======
 			<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+			<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+			<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
+=======
+			<string>CCEBF47A-E7AF-43B0-864D-872F5BA819DE</string>
+>>>>>>> FETCH_HEAD
 			<key>IDESourceControlWCCName</key>
 			<string>arm</string>
 		</dict>

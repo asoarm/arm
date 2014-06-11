@@ -68,7 +68,7 @@
     
     [db setShouldCacheStatements:YES];
     
-    //課格納
+    //団体格納
     NSString*   sql = @"SELECT * FROM Enterprise WHERE division = \"民間\";";
     FMResultSet*    rs = [db executeQuery:sql];
     mEnterprise = [[NSMutableArray alloc] init];
@@ -109,6 +109,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //セルをセット
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {

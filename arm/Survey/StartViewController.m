@@ -46,7 +46,7 @@
     self.singleTap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:self.singleTap];
     
-    
+    //DB接続処理
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -65,25 +65,23 @@
     }
     
     [db setShouldCacheStatements:YES];
-
+    //質問形式を区別するために区分を持ってくる
     NSString*   sql = [ NSString stringWithFormat : @"SELECT * FROM Question,QuestionDetail WHERE Question.q_id = QuestionDetail.q_id and sur_id = \"%@\" order by q_id,qd_id;",survey.sur_id];
+    
     FMResultSet*    rs = [db executeQuery:sql];
+    //配列を初期化
     mQD = [[NSMutableArray alloc] init];
         
     while( [rs next] )
         {
-            
+            //Questionクラスのインスタンスを生成
             Question *QD = [[Question alloc] init];
-            QD.sur_id = [rs stringForColumn:@"sur_id"];
-            QD.q_id = [rs stringForColumn:@"q_id"];
-            QD.q_name = [rs stringForColumn:@"q_name"];
-            QD.qd_id = [rs stringForColumn:@"qd_id"];
-            QD.qd_name = [rs stringForColumn:@"qd_name"];
+            //インスタンスに属性をセット
             QD.cho_kubun = [rs stringForColumn:@"cho_kubun"];
-            QD.cho_id = [rs stringForColumn:@"cho_id"];
+            //配列にインスタンスを挿入
             [mQD addObject:QD];
         }
-    
+    //DB終了
     [rs close];
     [db close];
 }
@@ -126,7 +124,7 @@
 
         Question *qd = [mQD objectAtIndex:0];
         
-        //次のビューへ遷移する処理
+        //質問形式に応じた画面へ遷移する
         if([qd.cho_kubun isEqual: @"cho"]){
             SurveyViewController *surveyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyView"];
             surveyViewController.enterprise = enterprise;

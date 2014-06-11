@@ -44,41 +44,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    //タイトルをセット
     self.title = @"団体一覧";
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    NSString*   sql = [NSString stringWithFormat :@"SELECT * FROM Enterprise WHERE division = \"%@\";",survey.sur_division];
-    FMResultSet*    rs = [db executeQuery:sql];
-    mEnterprise= [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Enterprise * enterprise = [[Enterprise alloc] init];
-        enterprise.division = [rs stringForColumn:@"division"];
-        enterprise.e_id = [rs stringForColumn:@"e_id"];
-        enterprise.e_name = [rs stringForColumn:@"e_name"];
-        [mEnterprise addObject:enterprise];
-    }
-    
-    [rs close];
-    [db close];
+    [self selectEp];
     
     [self.tableView reloadData];
 }
@@ -100,11 +69,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    //配列の数を返す
     return [mEnterprise count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //cellをセット
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -181,5 +152,46 @@
     selectsection.enterprise = [mEnterprise objectAtIndex:indexPath.row];
     selectsection.survey = survey;
     [self.navigationController pushViewController:selectsection animated:YES];
+}
+-(void)selectEp{
+    //DB接続処理
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    //選んだ区分の団体を選択
+    NSString*   sql = [NSString stringWithFormat :@"SELECT * FROM Enterprise WHERE division = \"%@\";",survey.sur_division];
+    FMResultSet*    rs = [db executeQuery:sql];
+    //配列を初期化
+    mEnterprise= [[NSMutableArray alloc] init];
+    while( [rs next] )
+    {
+        //Enterpriseクラスのインスタンスを生成
+        Enterprise * enterprise = [[Enterprise alloc] init];
+        //インスタンスに属性をセット
+        enterprise.division = [rs stringForColumn:@"division"];
+        enterprise.e_id = [rs stringForColumn:@"e_id"];
+        enterprise.e_name = [rs stringForColumn:@"e_name"];
+        //配列にインスタンスを挿入
+        [mEnterprise addObject:enterprise];
+    }
+    
+    //DB終了
+    [rs close];
+    [db close];
 }
 @end

@@ -20,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Dropbox接続に必要な情報をセット
     DBAccountManager* accountManager =
     [[DBAccountManager alloc] initWithAppKey:DROPBOX_APP_KEY
                                       secret:DROPBOX_APP_SECRET];
