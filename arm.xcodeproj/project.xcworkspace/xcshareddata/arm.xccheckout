@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6CE271FD-C7E5-4E29-85FF-C165E1AC3F86</string>
+	<key>IDESourceControlProjectName</key>
+	<string>arm</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+		<string>https://github.com/asoarm/arm.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>arm.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/asoarm/arm.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+			<key>IDESourceControlWCCName</key>
+			<string>arm</string>
+		</dict>
+	</array>
+</dict>
+</plist>
