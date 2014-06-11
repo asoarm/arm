@@ -37,7 +37,7 @@
 @synthesize komidashi_memo_wid;
 @synthesize heightmax;
 @synthesize height_cell;
-@synthesize datak;
+@synthesize columnsuu;
 @synthesize omidashi_i;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -144,13 +144,12 @@
     [width2 addObject:[NSNumber numberWithFloat:memo3]];
     [width2 addObject:[NSNumber numberWithFloat:memo4]];
     [width2 addObject:[NSNumber numberWithFloat:memo5]];
-    int i = datak;
     omidashi_i = 0;
-    if([qd_id count]-i >=3){
+    if([qd_id count]-columnsuu >=3){
         omidashi_i = 3;
-    }else if([qd_id count]-i == 2){
+    }else if([qd_id count]-columnsuu == 2){
         omidashi_i = 2;
-    }else if([qd_id count]-i == 1){
+    }else if([qd_id count]-columnsuu == 1){
         omidashi_i = 1;
     }
     omidashi_wid = [[width objectAtIndex:omidashi_i-1] floatValue];
@@ -312,7 +311,7 @@
     headerFrame.origin.y += 65;
 	self.headerView.frame = headerFrame;
 	[self.view addSubview:self.headerView];
-	int j = datak;
+	int j = columnsuu;
     if([qd_id count]-j >=3){
         omidashi_i = 3;
     }else if([qd_id count]-j == 2){
@@ -546,17 +545,21 @@
     }
     
     [sql1 close];
+    //課の数だけループする処理
     for(int j=0; j< [sec_id count];j++){
       NSMutableArray *qd_name1 = [[NSMutableArray alloc] init];
       [qd_name1 addObject:[NSNull null]];
-        NSLog(@"uuuuu%i",datak);
-        int a = datak ;
+        
+        //配列に入っている質問の位置
+        int i = columnsuu;
+        
+        //画面に表示する質問の数だけループする処理
         for(int k=0; k < 3;k++){
-          if(a < [qd_id count]){
+          if(columnsuu < [qd_id count]){
           [qd_name1 addObject:[NSNull null]];
           [qd_name1 addObject:[NSNull null]];
           NSString *kubun = [[NSString alloc] init];
-          FMResultSet*    sql1 = [db executeQuery:@"select cho_kubun from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[a]];
+          FMResultSet*    sql1 = [db executeQuery:@"select cho_kubun from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[columnsuu + k]];
           while( [sql1 next] )
           {
               NSString *sql2 = [[NSString alloc] init];
@@ -566,30 +569,30 @@
           [sql1 close];
           FMResultSet* rs;
           if([kubun isEqualToString:@"cho"]){
-              rs = [db executeQuery:@"select a.ans_cho,s.sec_name,a.memo from Answer a,Section s where a.sur_id = ? and a.q_id = ? and a.e_id = ? and a.sec_id = s.sec_id and a.e_id = s.e_id and a.sec_id = ? and a.qd_id = ?;",sur_id,q_id,e_id,sec_id[j],qd_id[a]];
+              rs = [db executeQuery:@"select a.ans_cho,s.sec_name,a.memo from Answer a,Section s where a.sur_id = ? and a.q_id = ? and a.e_id = ? and a.sec_id = s.sec_id and a.e_id = s.e_id and a.sec_id = ? and a.qd_id = ?;",sur_id,q_id,e_id,sec_id[j],qd_id[columnsuu + k]];
           }else if ([kubun isEqualToString:@"str"]){
-              rs = [db executeQuery:@"select a.ans_str,s.sec_name,a.memo from Answer a,Section s where a.sur_id = ? and a.q_id = ? and a.e_id = ? and a.sec_id = s.sec_id and a.e_id = s.e_id and a.sec_id = ? and a.qd_id = ?;",sur_id,q_id,e_id,sec_id[j],qd_id[a]];
+              rs = [db executeQuery:@"select a.ans_str,s.sec_name,a.memo from Answer a,Section s where a.sur_id = ? and a.q_id = ? and a.e_id = ? and a.sec_id = s.sec_id and a.e_id = s.e_id and a.sec_id = ? and a.qd_id = ?;",sur_id,q_id,e_id,sec_id[j],qd_id[columnsuu + k]];
           }
-        while( [rs next] )
-        {
-          if(k == 0){
-            NSString *sec_name = [[NSString alloc] init];
-            sec_name = [rs stringForColumn:@"sec_name"];
-            [qd_name1 replaceObjectAtIndex:0 withObject:sec_name];
+          while( [rs next] )
+          {
+            if(k == 0){
+              NSString *sec_name = [[NSString alloc] init];
+              sec_name = [rs stringForColumn:@"sec_name"];
+              [qd_name1 replaceObjectAtIndex:0 withObject:sec_name];
           }
-          NSString *ans_cho = [[NSString alloc] init];
-          if([kubun isEqualToString:@"cho"]){
-            ans_cho = [rs stringForColumn:@"ans_cho"];
-          }else if([kubun isEqualToString:@"str"]){
+            NSString *ans_cho = [[NSString alloc] init];
+            if([kubun isEqualToString:@"cho"]){
+              ans_cho = [rs stringForColumn:@"ans_cho"];
+            }else if([kubun isEqualToString:@"str"]){
               ans_cho = [rs stringForColumn:@"ans_str"];
+            }
+            [qd_name1 replaceObjectAtIndex:k*2+1 withObject:ans_cho];
+            NSString *memo = [[NSString alloc] init];
+            memo = [rs stringForColumn:@"memo"];
+            [qd_name1 replaceObjectAtIndex:k*2+2 withObject:memo];
           }
-          [qd_name1 replaceObjectAtIndex:k*2+1 withObject:ans_cho];
-          NSString *memo = [[NSString alloc] init];
-          memo = [rs stringForColumn:@"memo"];
-          [qd_name1 replaceObjectAtIndex:k*2+2 withObject:memo];
-        }
-        [rs close];
-          a = a +1;
+          [rs close];
+          i = i +1;
         }
       }
     record = qd_name1;
@@ -601,30 +604,32 @@
         }else if([record count] == 7){
             [rows addObject:[[User alloc] initWithNo:strJ sec_name:sec_name[j] answer1:record[1] memo1:record[2] answer2:record[3] memo2:record[4] answer3:record[5] memo3:record[6]]];
         }
-        if(j == [sec_id count]-1 && a < [qd_id count]){
+        if(j == [sec_id count]-1 && i < [qd_id count]){
             [self button];
         }
     }
     sqldata = rows;
     [db close];
 }
+
+//ボタンの配置
 - (void)button{
     UIBarButtonItem* comment_btn = [[UIBarButtonItem alloc]
                                     initWithTitle:@"次へ"
                                     style:UIBarButtonItemStyleBordered
                                     target:self
-                                    action:@selector(cmt)];
+                                    action:@selector(btn_next)];
     self.navigationItem.rightBarButtonItems = @[comment_btn];
 }
--(void)cmt{
+
+//ボタンの処理
+-(void)btn_next{
     GridTableV *grid = [self.storyboard instantiateViewControllerWithIdentifier:@"Grid"];
     grid.sur_id = sur_id;
     grid.e_id = e_id;
     grid.q_id = q_id;
     grid.q_name = q_name;
-    int a=datak;
-    a = a+3;
-    grid.datak = a;
+    grid.columnsuu = columnsuu + 3;
 
     [self.navigationController pushViewController: grid animated:YES];
 }
