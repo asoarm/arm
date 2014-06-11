@@ -43,8 +43,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    //タイトルをセット
     self.title = @"課一覧";
-    
+    //DB接続処理
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -63,24 +64,29 @@
     }
     
     [db setShouldCacheStatements:YES];
-    
+    //選択した団体の課を選択
     NSString*   sql = [NSString stringWithFormat : @"SELECT * FROM Section WHERE e_id = \"%@\";",enterprise.e_id];
     FMResultSet*    rs = [db executeQuery:sql];
+    //配列の初期化
     mEnterprise= [[NSMutableArray alloc] init];
     while( [rs next] )
     {
+        //Enterpriseクラスのインスタンス生成
         Enterprise *enter = [[Enterprise alloc] init];
+        //インスタンスに属性をセット
         enter.division = enterprise.division;
         enter.e_id = enterprise.e_id;
         enter.e_name = enterprise.e_name;
         enter.sec_id = [rs stringForColumn:@"sec_id"];
         enter.sec_name = [rs stringForColumn:@"sec_name"];
+        //配列にインスタンスを挿入
         [mEnterprise addObject:enter];
     }
     
+    //DB終了
     [rs close];
     [db close];
-    
+    //tableviewのデータを再読み込み
     [self.tableView reloadData];
 }
 
@@ -101,11 +107,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    //配列の数を返す
     return [mEnterprise count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //セルをセット
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -177,7 +185,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Start画面へ
+    //Start画面へ遷移
     StartViewController *startViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
     startViewController.enterprise = [mEnterprise objectAtIndex:indexPath.row];
     NSLog(@"e_id=%@",startViewController.enterprise.e_id);

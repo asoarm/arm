@@ -31,6 +31,27 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 	// Do any additional setup after loading the view.
     
+    [self temporary];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    //ナビゲーションバー非表示
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)menu:(id)sender {
+    //メニュー画面へ遷移する
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)temporary{
+    //DB接続処理
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -53,20 +74,5 @@
     NSString*   delete = @"DELETE FROM Temporary";
     [db executeUpdate:delete];
     [db close];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)menu:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

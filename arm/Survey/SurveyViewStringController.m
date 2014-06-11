@@ -106,6 +106,7 @@
     //最初だけの処理
     if(i == 0)
     {
+        //質問を全て配列に格納する
         NSString*   sql = [ NSString stringWithFormat : @"SELECT * FROM Question,QuestionDetail WHERE Question.q_id = QuestionDetail.q_id and sur_id = \"%@\" order by q_id,qd_id;",survey.sur_id];
         FMResultSet*    rs = [db executeQuery:sql];
         mQD = [[NSMutableArray alloc] init];
@@ -190,7 +191,7 @@
 
 - (IBAction)next:(id)sender {
     
-    
+    //入力されていて次の質問がある場合の処理
     if(i < max-1 && !([answer_str.text isEqual:@""]) && !(answer_str.text == nil))
     {
         //次の質問の番号へ
@@ -202,7 +203,7 @@
         [formatter setDateFormat:@"yyyy/MM/dd"];
         NSString *datemoji = [formatter stringFromDate:nowdate];
         
-        //回答をDBに保存
+        //回答を仮テーブルに保存
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -252,7 +253,10 @@
             surveyViewStringController.max = max;
             [self presentViewController:surveyViewStringController animated:YES completion:nil];
         }
+    //入力されていて次の質問がない場合の処理
     }else if(i == max-1 && !([answer_str.text isEqual:@""]) && !(answer_str.text == nil)){
+        //仮テーブルからAnswerテーブルへ
+        
         //現在日付を取得
         NSDate *nowdate = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -315,6 +319,7 @@
         EndViewController *endViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EndView"];
         [self presentViewController:endViewController animated:YES completion:nil];
     }else if(_flg){
+        //入力されていない場合の処理
         NSString *body = @"入力してください";
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:body delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];

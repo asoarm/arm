@@ -69,7 +69,7 @@
     self.singleTap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:self.singleTap];
     
-
+    
     [self color:choice1btn];
     [self color:choice2btn];
     [self color:choice3btn];
@@ -114,6 +114,7 @@
     //最初だけの処理
     if(i == 0)
     {
+        //質問を全て配列に格納する
         NSString*   sql = [ NSString stringWithFormat : @"SELECT * FROM Question,QuestionDetail WHERE Question.q_id = QuestionDetail.q_id and sur_id = \"%@\" order by q_id,qd_id;",survey.sur_id];
         FMResultSet*    rs = [db executeQuery:sql];
         mQD = [[NSMutableArray alloc] init];
@@ -151,7 +152,6 @@
     
     FMResultSet*    rs = [db executeQuery:sql];
     cho = [[Choice alloc] init];
-    
     while( [rs next] ){
         cho.choice1 = [rs stringForColumn:@"choice1"];
         cho.choice2 = [rs stringForColumn:@"choice2"];
@@ -164,7 +164,7 @@
     [rs close];
     [db close];
     
-    //ボタン設定
+    //ボタンのラベル設定
     [choice1btn setTitle:cho.choice1 forState:UIControlStateNormal];
     [choice2btn setTitle:cho.choice2 forState:UIControlStateNormal];
     [choice3btn setTitle:cho.choice3 forState:UIControlStateNormal];
@@ -218,7 +218,7 @@
 }
 
 - (IBAction)next:(id)sender {
-    
+    //選択肢が選ばれていて次の質問がある場合の処理
     if(i < max-1 && !([selectcho isEqual:@""]) && !(selectcho == nil))
     {
         //次の質問の番号へ
@@ -230,7 +230,7 @@
         [formatter setDateFormat:@"yyyy/MM/dd"];
         NSString *datemoji = [formatter stringFromDate:nowdate];
 
-        //回答をDBに保存
+        //回答を仮テーブルに保存
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -280,7 +280,10 @@
             surveyViewStringController.max = max;
             [self presentViewController:surveyViewStringController animated:YES completion:nil];
         }
+    //選択肢が選ばれていて次の質問がない場合の処理
     }else if(i == max-1 && !([selectcho isEqual:@""]) && !(selectcho == nil)){
+        //仮テーブルからAnswerテーブルへ
+        
         //現在日付を取得
         NSDate *nowdate = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -342,6 +345,7 @@
         EndViewController *endViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EndView"];
         [self presentViewController:endViewController animated:YES completion:nil];
     }else{
+        //選択肢が選ばれていない場合の処理
         NSString *body = @"選択してください";
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:body delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -386,6 +390,7 @@
     }
 }
 -(void)selectchoice1{
+    //選択したボタンの色を変更
     selectcho = cho.choice1;
     [choice1btn setBackgroundColorString:@"AFDFE4" forState:UIControlStateNormal];
     [choice2btn setBackgroundColorString:@"FFFFFF" forState:UIControlStateNormal];

@@ -20,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //ナビゲーションバー非表示
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -29,7 +30,7 @@
     BOOL isBool = [defaults boolForKey:@"KEY_BOOL"];
     // isBoolがNOの場合、アラート表示
     if (!isBool) {
-        //データベース作成
+        //データベース作成・接続
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -192,6 +193,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    //ナビゲーションバー非表示
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -202,7 +204,7 @@
 }
 - (IBAction)data:(id)sender
 {
-    //NotesSettingControllerのインスタンスを生成
+    //NotesSettingControllerクラスのインスタンスを生成
     _settingsController = [[NotesSettingsController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_settingsController];
     //_settingControllerへ画面遷移

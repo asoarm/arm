@@ -37,6 +37,7 @@
 }
 
 - (IBAction)mainmenu:(id)sender {
+    //メニュー画面へ遷移
     MainViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainView"];
     [self presentViewController:mainViewController animated:YES completion:nil];
 }

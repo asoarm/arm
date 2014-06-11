@@ -34,44 +34,9 @@
     
     //ナビゲーションバー表示
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    [self selectadmin];
     
-    [self.navigationItem setHidesBackButton:YES];
-    //戻るボタン非表示
-    self.title = @"行政アンケート";
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    NSString*   sql = @"SELECT * FROM Survey WHERE sur_division = \"行政\";";
-    FMResultSet*    rs = [db executeQuery:sql];
-    mSurvey= [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Survey * survey = [[Survey alloc] init];
-        survey.sur_id = [rs stringForColumn:@"sur_id"];
-        survey.sur_name = [rs stringForColumn:@"sur_name"];
-        survey.sur_division = [rs stringForColumn:@"sur_division"];
-        [mSurvey addObject:survey];
-    }
-    
-    [rs close];
-    [db close];
 }
 
 - (void)viewDidUnload
@@ -83,44 +48,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationItem setHidesBackButton:YES];
-    //戻るボタン非表示
-    self.title = @"行政アンケート";
+    [self selectadmin];
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    NSString*   sql = @"SELECT * FROM Survey WHERE sur_division = \"行政\";";
-    FMResultSet*    rs = [db executeQuery:sql];
-    mSurvey= [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Survey * survey = [[Survey alloc] init];
-        survey.sur_id = [rs stringForColumn:@"sur_id"];
-        survey.sur_name = [rs stringForColumn:@"sur_name"];
-        survey.sur_division = [rs stringForColumn:@"sur_division"];
-        [mSurvey addObject:survey];
-    }
-    
-    [rs close];
-    [db close];
-    
+    //Tableviewのデータ再読み込み
     [self.tableView reloadData];
 }
 
@@ -141,11 +71,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    //mSurveyの配列の数を返す
     return [mSurvey count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Cellをセットする処理
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -217,13 +149,62 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //団体選択画面へ遷移
     SelectEnterpriseViewController *selectEnterpriseViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"selectenterprise"];
     selectEnterpriseViewController.survey = [mSurvey objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:selectEnterpriseViewController animated:YES];
 }
 
 - (IBAction)back:(id)sender {
+    //質問区分選択画面へ遷移
     DivisionViewController *divisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DivisionView"];
     [self presentViewController:divisionViewController animated:YES completion:nil];
+}
+-(void)selectadmin{
+    
+    //戻るボタン非表示
+    [self.navigationItem setHidesBackButton:YES];
+    //タイトルをセット
+    self.title = @"行政アンケート";
+    
+    //DB接続処理
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //区分が行政のアンケートを選択
+    NSString*   sql = @"SELECT * FROM Survey WHERE sur_division = \"行政\";";
+    FMResultSet*    rs = [db executeQuery:sql];
+    //配列の初期化
+    mSurvey= [[NSMutableArray alloc] init];
+    while( [rs next] )
+    {
+        //Surveyクラスのインスタンスを生成
+        Survey * survey = [[Survey alloc] init];
+        //インスタンスに属性をセット
+        survey.sur_id = [rs stringForColumn:@"sur_id"];
+        survey.sur_name = [rs stringForColumn:@"sur_name"];
+        survey.sur_division = [rs stringForColumn:@"sur_division"];
+        //配列にインスタンスを挿入
+        [mSurvey addObject:survey];
+    }
+    //DB終了
+    [rs close];
+    [db close];
 }
 @end
