@@ -5,19 +5,31 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>BD636725-E17C-4A8C-B004-D9F714F59568</string>
+=======
+	<string>48EEB6C3-E094-42AE-9EDC-167D572058F5</string>
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectName</key>
 	<string>arm</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+=======
+		<key>DBCDBFBF-CC58-4E20-B4B4-54B26825B2FD</key>
+>>>>>>> FETCH_HEAD
 		<string>https://github.com/asoarm/arm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>arm.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>334DBCDF-C5E7-43B0-B471-B6254CCA6248</key>
+=======
+		<key>DBCDBFBF-CC58-4E20-B4B4-54B26825B2FD</key>
+>>>>>>> FETCH_HEAD
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +37,22 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
+<<<<<<< HEAD
 	<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+=======
+	<string>DBCDBFBF-CC58-4E20-B4B4-54B26825B2FD</string>
+>>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+<<<<<<< HEAD
 			<string>334DBCDF-C5E7-43B0-B471-B6254CCA6248</string>
+=======
+			<string>DBCDBFBF-CC58-4E20-B4B4-54B26825B2FD</string>
+>>>>>>> FETCH_HEAD
 			<key>IDESourceControlWCCName</key>
 			<string>arm</string>
 		</dict>

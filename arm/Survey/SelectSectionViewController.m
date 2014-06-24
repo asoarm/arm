@@ -188,11 +188,7 @@
     //Start画面へ遷移
     StartViewController *startViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
     startViewController.enterprise = [mEnterprise objectAtIndex:indexPath.row];
-    NSLog(@"e_id=%@",startViewController.enterprise.e_id);
-    NSLog(@"e_name=%@",startViewController.enterprise.e_name);
-    NSLog(@"division=%@",startViewController.enterprise.division);
-    NSLog(@"sec_id=%@",startViewController.enterprise.sec_id);
-    NSLog(@"sec_name=%@",startViewController.enterprise.sec_name);
+
     startViewController.survey = survey;
     [self.navigationController pushViewController:startViewController animated:YES];
 }

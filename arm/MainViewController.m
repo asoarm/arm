@@ -57,7 +57,7 @@
         NSString    *sql4 = @"CREATE TABLE Section(e_id TEXT,sec_id TEXT,sec_name TEXT NOT NULL, PRIMARY KEY(e_id,sec_id),FOREIGN KEY(e_id) REFERENCES Enterprise(e_id));";
         NSString    *sql5 = @"CREATE TABLE Choice (cho_id TEXT, choice1 TEXT NOT NULL, choice2 TEXT NOT NULL, choice3 TEXT, choice4 TEXT, choice5 TEXT, choice6 TEXT, PRIMARY KEY(cho_id));";
         
-        NSString    *sql6 = @"CREATE TABLE QuestionDetail (sur_id TEXT, q_id TEXT, qd_id TEXT,qd_name TEXT NOT NULL, cho_kubun TEXT NOT NULL,cho_id TEXT,PRIMARY KEY(sur_id,q_id,qd_id) ,FOREIGN KEY(sur_id) REFERENCES Survey(sur_id),FOREIGN KEY(q_id) REFERENCES Question(q_id),FOREIGN KEY(cho_id) REFERENCES Choice(cho_id));";
+        NSString    *sql6 = @"CREATE TABLE QuestionDetail (sur_id TEXT, q_id TEXT, qd_id TEXT,qd_name TEXT NOT NULL, cho_division TEXT NOT NULL,cho_id TEXT,PRIMARY KEY(sur_id,q_id,qd_id) ,FOREIGN KEY(sur_id) REFERENCES Survey(sur_id),FOREIGN KEY(q_id) REFERENCES Question(q_id),FOREIGN KEY(cho_id) REFERENCES Choice(cho_id));";
 
         NSString    *sql7 = @"CREATE TABLE Answer (sur_id TEXT, q_id TEXT, qd_id TEXT,e_id TEXT,sec_id TEXT,ans_date NUMERIC,answerer TEXT NOT NULL,charge TEXT NOT NULL,ans_cho TEXT,ans_str TEXT,memo TEXT,PRIMARY KEY(sur_id,q_id,qd_id,e_id,sec_id,ans_date) ,FOREIGN KEY(sur_id) REFERENCES Survey(sur_id),FOREIGN KEY(q_id) REFERENCES Question(q_id),FOREIGN KEY(qd_id) REFERENCES QuestionDetail(qd_id),FOREIGN KEY(e_id) REFERENCES Enterprise(e_id),FOREIGN KEY(sec_id) REFERENCES Section(sec_id));";
         

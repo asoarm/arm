@@ -14,7 +14,7 @@ NSString *sur_id;
 NSString *q_id;
 NSString *qd_id;
 NSString *qd_name;
-NSString *cho_kubun;
+NSString *cho_division;
 NSString *cho_id;
 NSString *q_c;
 }
@@ -23,7 +23,7 @@ NSString *q_c;
 @property(nonatomic,retain)NSString *q_id;
 @property(nonatomic,retain)NSString *qd_id;
 @property(nonatomic,retain)NSString *qd_name;
-@property(nonatomic,retain)NSString *cho_kubun;
+@property(nonatomic,retain)NSString *cho_division;
 @property(nonatomic,retain)NSString *cho_id;
 @property(nonatomic,retain)NSString *q_c;
 @end

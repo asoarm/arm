@@ -80,7 +80,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    //追加1
+    
     [super viewWillAppear:animated];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -128,7 +128,7 @@
             QD.q_name = [rs stringForColumn:@"q_name"];
             QD.qd_id = [rs stringForColumn:@"qd_id"];
             QD.qd_name = [rs stringForColumn:@"qd_name"];
-            QD.cho_kubun = [rs stringForColumn:@"cho_kubun"];
+            QD.cho_division = [rs stringForColumn:@"cho_division"];
             QD.cho_id = [rs stringForColumn:@"cho_id"];
             [mQD addObject:QD];
             
@@ -259,7 +259,7 @@
         questions = [mQD objectAtIndex:i];
         
         //次のビューへ遷移する処理
-        if([questions.cho_kubun isEqual: @"cho"]){
+        if([questions.cho_division isEqual: @"cho"]){
             SurveyViewController *surveyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyView"];
             surveyViewController.enterprise = enterprise;
             surveyViewController.survey = survey;
@@ -269,7 +269,7 @@
             surveyViewController.mQD = mQD;
             surveyViewController.max = max;
             [self presentViewController:surveyViewController animated:YES completion:nil];
-        }else if ([questions.cho_kubun isEqual:@"str"]){
+        }else if ([questions.cho_division isEqual:@"str"]){
             SurveyViewStringController *surveyViewStringController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyViewString"];
             surveyViewStringController.enterprise = enterprise;
             surveyViewStringController.survey = survey;
@@ -449,7 +449,7 @@
         i = i - 1;
         questions = [mQD objectAtIndex:i];
         //前のビューへ遷移する処理
-        if([questions.cho_kubun isEqual: @"cho"]){
+        if([questions.cho_division isEqual: @"cho"]){
             SurveyViewController *surveyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyView"];
             surveyViewController.enterprise = enterprise;
             surveyViewController.survey = survey;
@@ -461,7 +461,7 @@
             surveyViewController.flg1= true;
             NSLog(@"%i",surveyViewController.flg1);
             [self presentViewController:surveyViewController animated:YES completion:nil];
-        }else if ([questions.cho_kubun isEqual:@"str"]){
+        }else if ([questions.cho_division isEqual:@"str"]){
             SurveyViewStringController *surveyViewStringController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyViewString"];
             surveyViewStringController.enterprise = enterprise;
             surveyViewStringController.survey = survey;
@@ -486,7 +486,6 @@
     [[button layer] setCornerRadius:7.5];
     [button setClipsToBounds:YES];
 }
-//追加1
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -586,7 +585,6 @@
     {
         Answer * answer = [[Answer alloc] init];
         answer.ans_cho= [rs stringForColumn:@"ans_cho"];
-        NSLog(@"ans_cho=%@",answer.ans_cho);
         answer.memo = [rs stringForColumn:@"memo"];
         memo.text = answer.memo;
         [mAnswer addObject:answer];

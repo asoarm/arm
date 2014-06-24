@@ -58,22 +58,25 @@
     return self;
 }
 
+/**
+ * 参照カウンタが0になってクラスのインスタンスが解放される直前に実行される。
+ *初期化メソッドやセッターメソッドで確保したオブジェクトの所有権は、ここでまとめて解放する処理。
+ **/
 - (void) dealloc {
 	self.tableView = nil;
 }
-//追加
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"%@",q_id);
-    
     [self data];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title = q_name;
-    //追加
+
     [self column];
     [self width];
     UITableView *tableView = [[UITableView alloc] init];
@@ -101,7 +104,6 @@
 	bgView.backgroundColor = [UIColor whiteColor];
 	self.tableView.backgroundView = bgView;
 	
-    
 	for (int i = 0; i < [self.cols count]; i++) {
 		float right = [self leftPositionOfColomnNumber:i+1];
 		
@@ -109,9 +111,7 @@
 		tableSeparator.backgroundColor = [UIColor lightGrayColor];
 		[self.tableView.backgroundView addSubview:tableSeparator];
 	}
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-
 
 - (void)viewDidUnload
 {
@@ -231,7 +231,7 @@
         height_cell = [[NSMutableArray alloc] init];
     }
     [height_cell addObject:[NSNumber numberWithFloat:heightmax+5]];
-    NSLog(@"なか%@",[height_cell objectAtIndex:indexPath.row]);
+
     return [[height_cell objectAtIndex:indexPath.row] floatValue];
 }
 
@@ -283,13 +283,11 @@
                  label.text = @"----";
             }
 		}
-		NSLog(@"label%@",label.text);
 		if (col.labelRenderer != nil) {
 			col.labelRenderer(label, val);
 		}
         [label sizeToFit];
 
-        NSLog(@"label1%i",heightmax);
 		[cell.contentView addSubview:label];
 		
 		// セパレータ
@@ -468,9 +466,6 @@
 	return x;
 }
 
-
-//追加
-
 -(void) column{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
@@ -503,7 +498,7 @@
     }
     qd_name = qd_name1;
     qd_id = qd_id1;
-    
+
     [rs close];
     
     
@@ -555,15 +550,16 @@
         
         //画面に表示する質問の数だけループする処理
         for(int k=0; k < 3;k++){
-          if(columnsuu < [qd_id count]){
+          if(columnsuu + k < [qd_id count]){
           [qd_name1 addObject:[NSNull null]];
           [qd_name1 addObject:[NSNull null]];
           NSString *kubun = [[NSString alloc] init];
-          FMResultSet*    sql1 = [db executeQuery:@"select cho_kubun from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[columnsuu + k]];
+              
+          FMResultSet*    sql1 = [db executeQuery:@"select cho_division from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[columnsuu + k]];
           while( [sql1 next] )
           {
               NSString *sql2 = [[NSString alloc] init];
-              sql2 = [sql1 stringForColumn:@"cho_kubun"];
+              sql2 = [sql1 stringForColumn:@"cho_division"];
               kubun = sql2;
           }
           [sql1 close];

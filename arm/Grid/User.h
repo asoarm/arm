@@ -10,9 +10,8 @@
 
 @interface User : NSObject
 
-//NSStringクラス＝文字列を扱うクラス
 //nonatomic＝インスタンスの同時実行を防ぐ
-//retain＝関連づけられている変数のカウントを１プラスする
+//retain＝変数を保持する
 @property(nonatomic, retain) NSString *no;
 @property(nonatomic, retain) NSString *no1;
 @property(nonatomic, retain) NSString *sec_name;
@@ -29,7 +28,7 @@
 @property(nonatomic, retain) NSString *memo5;
 
 //id型＝どんなクラスのインスタンスも入れることができる、型を意識しなくてよい
-//すべてid型で指定している
+
 -(id) initWithNo:(NSString*)no sec_name:(NSString*)sec_name answer1:(NSString*)answer1 memo1:(NSString*)memo1;
 
 -(id) initWithNo:(NSString*)no sec_name:(NSString*)sec_name answer1:(NSString*)answer1 memo1:(NSString*)memo1 answer2:(NSString*)answer2 memo2:(NSString*)memo2;

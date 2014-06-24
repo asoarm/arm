@@ -10,8 +10,7 @@
 
 @implementation User
 
-//super=指定されたクラスの上のクラスの部分を使うことができる
-//self=NSObjectにあるメソッドの一つ。インスタンスそのものを表すためのメソッド。例えば、helloというクラス内に或るメソッドを呼び出すときは[self hello]と宣言する
+//表示する質問が一つの場合
 -(id) initWithNo:(NSString*)no sec_name:(NSString*)sec_name answer1:(NSString*)answer1 memo1:(NSString*)memo1{
     self = [super init];
     if(self){
@@ -23,6 +22,7 @@
     return self;
 }
 
+//表示する質問が二つの場合
 -(id) initWithNo:(NSString *)no sec_name:(NSString *)sec_name answer1:(NSString *)answer1 memo1:(NSString *)memo1 answer2:(NSString *)answer2 memo2:(NSString *)memo2{
     self = [super init];
 	if (self) {
@@ -36,6 +36,7 @@
 	return self;
 }
 
+//表示する質問が三つの場合
 -(id) initWithNo:(NSString*)no sec_name:(NSString*)sec_name answer1:(NSString*)answer1 memo1:(NSString*)memo1 answer2:(NSString*)answer2 memo2:(NSString*)memo2 answer3:(NSString*)answer3 memo3:(NSString*)memo3{
 	self = [super init];
 	if (self) {

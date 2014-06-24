@@ -72,8 +72,7 @@
 
 }
 
-- (void)setcho_name
-{
+- (void)setcho_name{
     //適切な選択肢を取り出す処理
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
@@ -105,13 +104,11 @@
     }
     [rs close];
     
-    
     [db close];
 }
 
 
-- (void)showpie
-{
+- (void)showpie{
     //円グラフを表示
     PieChartsView *pieChartsView = [[PieChartsView alloc] initWithFrame:self.view.bounds];
     pieChartsView.choice1 = choice1;
@@ -143,8 +140,7 @@
     _interview.layer.borderColor = [UIColor grayColor].CGColor;
     
 }
-- (void)label
-{
+- (void)label{
     //qd表示
     _qd.text = [ NSString stringWithFormat : @"%@", questiondetail.qd_name];
     
@@ -253,7 +249,6 @@
         if( memo == nil || ([memo isEqualToString:@""]) || [memo isEqual:[NSNull null]] ){
             //nullのときの処理
         }else{
-            NSLog(@"テスト１%@",memo);
             if(i==0){
                 interviewmemo = memo;
             }else{

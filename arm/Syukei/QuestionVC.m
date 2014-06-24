@@ -57,7 +57,67 @@
     choice4 = 0;
     choice5 = 0;
     choice6 = 0;
+    [self selectQuestionDetail];
     
+    [self.tableView reloadData];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    //セクション数
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    //行数
+    return [mQD count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //配列から値を習得し、セルのラベルに設定
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] ;
+    }
+    
+    QuestionDetail *qd = [mQD objectAtIndex:indexPath.row];
+    cell.textLabel.text = qd.qd_name;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
+
+}
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *) indexpath{
+    //セルの大きさ
+    return 100;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //セルをタップした処理
+    questiondetail = [mQD objectAtIndex:indexPath.row];
+    [self cho];
+
+    PieChartsViewController *pcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Display"];
+    pcVC.questiondetail = questiondetail;
+    pcVC.enterprise = enterprise;
+    pcVC.choice1 = choice1;
+    pcVC.choice2 = choice2;
+    pcVC.choice3 = choice3;
+    pcVC.choice4 = choice4;
+    pcVC.choice5 = choice5;
+    pcVC.choice6 = choice6;
+    pcVC.cho_flg = cho_flg;
+    [self.navigationController pushViewController:pcVC animated:YES];
+}
+
+-(void)selectQuestionDetail{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -76,7 +136,7 @@
     }
     [db setShouldCacheStatements:YES];
     
-    FMResultSet*    rs = [db executeQuery:@"select * from QuestionDetail where sur_id = ? and cho_kubun = \"cho\" order by q_id,qd_id;",survey.sur_id];
+    FMResultSet*    rs = [db executeQuery:@"select * from QuestionDetail where sur_id = ? and cho_division = \"cho\" order by q_id,qd_id;",survey.sur_id];
     
     FMResultSet*    qc = [db executeQuery:@"select count(q_id) as q_count from Question;"];
     //mQDは選んだアンケートの質問情報を入れる
@@ -90,84 +150,22 @@
         qd.q_id = [rs stringForColumn:@"q_id"];
         qd.qd_id = [rs stringForColumn:@"qd_id"];
         qd.qd_name = [rs stringForColumn:@"qd_name"];
-        qd.cho_kubun = [rs stringForColumn:@"cho_kubun"];
+        qd.cho_division = [rs stringForColumn:@"cho_division"];
         qd.cho_id = [rs stringForColumn:@"cho_id"];
         [mQD addObject:qd];
     }while ([qc next]){
         q_count *QC = [[q_count alloc] init];
         QC.q_cnt = [[qc stringForColumn:@"q_count"] intValue];
-        NSLog(@"設問数=%d",QC.q_cnt);
         [mq_count addObject:QC];
     }
     [qc close];
     [rs close];
-
+    
     
     [db close];
-    
-    [self.tableView reloadData];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    //セクション数
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    //行数
-    return [mQD count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //配列から値を習得し、セルのラベルに設定
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] ;
-    }
-    
-    QuestionDetail *qd = [mQD objectAtIndex:indexPath.row];
-    cell.textLabel.text = qd.qd_name;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
 
 }
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *) indexpath
-{
-    //セルの大きさ
-    return 100;
-    
-}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //セルをタップした処理
-    questiondetail = [mQD objectAtIndex:indexPath.row];
-    [self cho];
-
-    PieChartsViewController *pcVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Display"];
-    pcVC.questiondetail = questiondetail;
-    pcVC.enterprise = enterprise;
-    pcVC.choice1 = choice1;
-    pcVC.choice2 = choice2;
-    pcVC.choice3 = choice3;
-    pcVC.choice4 = choice4;
-    pcVC.choice5 = choice5;
-    pcVC.choice6 = choice6;
-    pcVC.cho_flg = cho_flg;
-    [self.navigationController pushViewController:pcVC animated:YES];
-}
 -(void)cho{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;

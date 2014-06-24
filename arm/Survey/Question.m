@@ -14,6 +14,6 @@
 @synthesize q_name;
 @synthesize qd_id;
 @synthesize qd_name;
-@synthesize cho_kubun;
+@synthesize cho_division;
 @synthesize cho_id;
 @end

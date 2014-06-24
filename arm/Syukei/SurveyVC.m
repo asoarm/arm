@@ -42,40 +42,7 @@
 {
     self.title = @"アンケート一覧";
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    [db setShouldCacheStatements:YES];
-    
-    FMResultSet*    rs = [db executeQuery:@"select S.sur_id,S.sur_name from Answer A,Survey S where A.sur_id = S.sur_id and A.e_id = ? group by S.sur_id;",enterprise.e_id ];
-    //mSurveyは企業に実施したアンケート情報（アンケートID,アンケート名）を入れる
-    mSurvey= [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Survey * answer = [[Survey alloc] init];
-        answer.sur_id = [rs stringForColumn:@"sur_id"];
-        NSLog(@"sur_id=%@",answer.sur_id);
-        answer.sur_name = [rs stringForColumn:@"sur_name"];
-        NSLog(@"sur_name=%@",answer.sur_name);
-        [mSurvey addObject:answer];
-    }
-    
-    [rs close];
-    [db close];
-    
+    [self selectSurvey];
     [self.tableView reloadData];
 }
 
@@ -125,6 +92,40 @@
     mgvc.survey= [mSurvey objectAtIndex:indexPath.row];
     mgvc.enterprise = enterprise;
     [self.navigationController pushViewController: mgvc animated:YES];
+}
+-(void)selectSurvey{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    [db setShouldCacheStatements:YES];
+    
+    FMResultSet*    rs = [db executeQuery:@"select S.sur_id,S.sur_name from Answer A,Survey S where A.sur_id = S.sur_id and A.e_id = ? group by S.sur_id;",enterprise.e_id ];
+    //mSurveyは企業に実施したアンケート情報（アンケートID,アンケート名）を入れる
+    mSurvey= [[NSMutableArray alloc] init];
+    while( [rs next] )
+    {
+        Survey * answer = [[Survey alloc] init];
+        answer.sur_id = [rs stringForColumn:@"sur_id"];
+        answer.sur_name = [rs stringForColumn:@"sur_name"];
+        [mSurvey addObject:answer];
+    }
+    
+    [rs close];
+    [db close];
+
 }
 
 @end

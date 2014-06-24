@@ -39,40 +39,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     self.title = @"質問一覧";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    [db setShouldCacheStatements:YES];
-    
-    FMResultSet*    rs = [db executeQuery:@"select distinct q.q_id ,q.q_name from QuestionDetail qd,Question q where qd.sur_id = ? and qd.q_id = q.q_id;",sur_id];
-    
-    question = [[NSMutableArray alloc] init];
-    while( [rs next] )
-    {
-        Question *qd  = [[Question alloc] init];
-        qd.q_id = [rs stringForColumn:@"q_id"];
-        qd.q_name = [rs stringForColumn:@"q_name"];
-        [question addObject:qd];
-    }
-
-    [rs close];
-    
-    
-    [db close];
-    
+    [self selectquestion];
     [self.tableView reloadData];
 
 }
@@ -124,5 +91,42 @@
     int k = 0;
     grid.columnsuu = k;
     [self.navigationController pushViewController: grid animated:YES];
+}
+
+-(void)selectquestion{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    [db setShouldCacheStatements:YES];
+    
+    FMResultSet*    rs = [db executeQuery:@"select distinct q.q_id ,q.q_name from QuestionDetail qd,Question q where qd.sur_id = ? and qd.q_id = q.q_id;",sur_id];
+    
+    question = [[NSMutableArray alloc] init];
+    while( [rs next] )
+    {
+        Question *qd  = [[Question alloc] init];
+        qd.q_id = [rs stringForColumn:@"q_id"];
+        qd.q_name = [rs stringForColumn:@"q_name"];
+        [question addObject:qd];
+    }
+    
+    [rs close];
+    
+    
+    [db close];
+
 }
 @end

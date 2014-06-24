@@ -77,7 +77,7 @@
             //Questionクラスのインスタンスを生成
             Question *QD = [[Question alloc] init];
             //インスタンスに属性をセット
-            QD.cho_kubun = [rs stringForColumn:@"cho_kubun"];
+            QD.cho_division = [rs stringForColumn:@"cho_division"];
             //配列にインスタンスを挿入
             [mQD addObject:QD];
         }
@@ -125,14 +125,14 @@
         Question *qd = [mQD objectAtIndex:0];
         
         //質問形式に応じた画面へ遷移する
-        if([qd.cho_kubun isEqual: @"cho"]){
+        if([qd.cho_division isEqual: @"cho"]){
             SurveyViewController *surveyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyView"];
             surveyViewController.enterprise = enterprise;
             surveyViewController.survey = survey;
             surveyViewController.charge = txt1.text;
             surveyViewController.answerer = txt2.text;
             [self presentViewController:surveyViewController animated:YES completion:nil];
-        }else if ([qd.cho_kubun isEqual:@"str"]){
+        }else if ([qd.cho_division isEqual:@"str"]){
             SurveyViewStringController *surveyViewStringController = [self.storyboard instantiateViewControllerWithIdentifier:@"SurveyViewString"];
             surveyViewStringController.enterprise = enterprise;
             surveyViewStringController.survey = survey;
