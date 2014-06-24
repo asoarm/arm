@@ -13,7 +13,7 @@
 @synthesize q_id;
 @synthesize qd_id;
 @synthesize qd_name;
-@synthesize cho_kubun;
+@synthesize cho_division;
 @synthesize cho_id;
 @synthesize q_c;
 @end

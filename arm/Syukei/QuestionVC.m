@@ -136,7 +136,7 @@
     }
     [db setShouldCacheStatements:YES];
     
-    FMResultSet*    rs = [db executeQuery:@"select * from QuestionDetail where sur_id = ? and cho_kubun = \"cho\" order by q_id,qd_id;",survey.sur_id];
+    FMResultSet*    rs = [db executeQuery:@"select * from QuestionDetail where sur_id = ? and cho_division = \"cho\" order by q_id,qd_id;",survey.sur_id];
     
     FMResultSet*    qc = [db executeQuery:@"select count(q_id) as q_count from Question;"];
     //mQDは選んだアンケートの質問情報を入れる
@@ -150,7 +150,7 @@
         qd.q_id = [rs stringForColumn:@"q_id"];
         qd.qd_id = [rs stringForColumn:@"qd_id"];
         qd.qd_name = [rs stringForColumn:@"qd_name"];
-        qd.cho_kubun = [rs stringForColumn:@"cho_kubun"];
+        qd.cho_division = [rs stringForColumn:@"cho_division"];
         qd.cho_id = [rs stringForColumn:@"cho_id"];
         [mQD addObject:qd];
     }while ([qc next]){

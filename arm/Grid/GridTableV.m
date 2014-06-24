@@ -555,11 +555,11 @@
           [qd_name1 addObject:[NSNull null]];
           NSString *kubun = [[NSString alloc] init];
               
-          FMResultSet*    sql1 = [db executeQuery:@"select cho_kubun from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[columnsuu + k]];
+          FMResultSet*    sql1 = [db executeQuery:@"select cho_division from QuestionDetail where sur_id = ? and q_id = ? and qd_id = ?;",sur_id,q_id,qd_id[columnsuu + k]];
           while( [sql1 next] )
           {
               NSString *sql2 = [[NSString alloc] init];
-              sql2 = [sql1 stringForColumn:@"cho_kubun"];
+              sql2 = [sql1 stringForColumn:@"cho_division"];
               kubun = sql2;
           }
           [sql1 close];

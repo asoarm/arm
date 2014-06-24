@@ -561,7 +561,7 @@
         questiond.q_id = [rs stringForColumn:@"q_id"];
         questiond.qd_id = [rs stringForColumn:@"qd_id"];
         questiond.qd_name = [rs stringForColumn:@"qd_name"];
-        questiond.cho_kubun = [rs stringForColumn:@"cho_kubun"];
+        questiond.cho_division = [rs stringForColumn:@"cho_division"];
         questiond.cho_id = [rs stringForColumn:@"cho_id"];
         [mQD addObject:questiond];
         max = max + 1;
@@ -572,11 +572,11 @@
     
     //結果を一列にまとめ文字列をすべてつなげる
     NSMutableString *all = [NSMutableString stringWithCapacity: 0];
-    NSString* line0 =[[NSString alloc] initWithFormat:@"sur_id,q_id,qd_id,qd_name,cho_kubun,cho_id\n"];
+    NSString* line0 =[[NSString alloc] initWithFormat:@"sur_id,q_id,qd_id,qd_name,cho_division,cho_id\n"];
     [all appendFormat:@"%@", line0];
     for(int i = 0;i < max; i++){
         Question* questiond = mQD[i];
-        NSString* line =[[NSString alloc] initWithFormat:@"%@,%@,%@,%@,%@,%@\n",questiond.sur_id,questiond.q_id,questiond.qd_id,questiond.qd_name,questiond.cho_kubun,questiond.cho_id];
+        NSString* line =[[NSString alloc] initWithFormat:@"%@,%@,%@,%@,%@,%@\n",questiond.sur_id,questiond.q_id,questiond.qd_id,questiond.qd_name,questiond.cho_division,questiond.cho_id];
         [all appendFormat:@"%@", line];
         
     }
