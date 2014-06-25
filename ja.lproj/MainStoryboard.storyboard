@@ -959,10 +959,10 @@
             </objects>
             <point key="canvasLocation" x="588" y="2074"/>
         </scene>
-        <!--CommentVC-->
+        <!--Comment-->
         <scene sceneID="8bX-Mk-RER">
             <objects>
-                <viewController storyboardIdentifier="comment" id="KLt-be-8lK" customClass="CommentVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="comment" id="KLt-be-8lK" customClass="Comment" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6f7-Ud-1C9">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -30,7 +30,7 @@
 		EB8C76BB1860488900BCA860 /* SurveyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76AE1860488800BCA860 /* SurveyVC.m */; };
 		EB8C76BC1860488900BCA860 /* SyukeiDivisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76B01860488900BCA860 /* SyukeiDivisionViewController.m */; };
 		EB8C76BD1860488900BCA860 /* SyukeiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76B21860488900BCA860 /* SyukeiViewController.m */; };
-		EB8C76CD186049A300BCA860 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76C0186049A300BCA860 /* Comment.m */; };
+		EB8C76CD186049A300BCA860 /* CommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76C0186049A300BCA860 /* CommentVC.m */; };
 		EB8C76CE186049A300BCA860 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB8C76C1186049A300BCA860 /* InfoPlist.strings */; };
 		EB8C76CF186049A300BCA860 /* GridColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76C4186049A300BCA860 /* GridColumn.m */; };
 		EB8C76D0186049A300BCA860 /* GridQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C76C6186049A300BCA860 /* GridQuestionVC.m */; };
@@ -91,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		69D39C0318968F0B00FC6785 /* NotesFolderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesFolderListController.m; sourceTree = "<group>"; };
+		EB86A88A195A72F8003E3ECC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		EB8C76631860475B00BCA860 /* arm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8C76661860475B00BCA860 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EB8C76681860475B00BCA860 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -127,8 +128,8 @@
 		EB8C76B01860488900BCA860 /* SyukeiDivisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyukeiDivisionViewController.m; sourceTree = "<group>"; };
 		EB8C76B11860488900BCA860 /* SyukeiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyukeiViewController.h; sourceTree = "<group>"; };
 		EB8C76B21860488900BCA860 /* SyukeiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyukeiViewController.m; sourceTree = "<group>"; };
-		EB8C76BF186049A300BCA860 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../../Grid/Comment.h; sourceTree = "<group>"; };
-		EB8C76C0186049A300BCA860 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = Comment.m; path = ../../Grid/Comment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EB8C76BF186049A300BCA860 /* CommentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentVC.h; path = ../../Grid/CommentVC.h; sourceTree = "<group>"; };
+		EB8C76C0186049A300BCA860 /* CommentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CommentVC.m; path = ../../Grid/CommentVC.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EB8C76C2186049A300BCA860 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EB8C76C3186049A300BCA860 /* GridColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridColumn.h; sourceTree = "<group>"; };
 		EB8C76C4186049A300BCA860 /* GridColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridColumn.m; sourceTree = "<group>"; };
@@ -370,8 +371,8 @@
 				EB8C76A21860488800BCA860 /* PieChartsViewController.m */,
 				EB8C76A31860488800BCA860 /* ViewSquare.h */,
 				EB8C76A41860488800BCA860 /* ViewSquare.m */,
-				EB8C76BF186049A300BCA860 /* Comment.h */,
-				EB8C76C0186049A300BCA860 /* Comment.m */,
+				EB8C76BF186049A300BCA860 /* CommentVC.h */,
+				EB8C76C0186049A300BCA860 /* CommentVC.m */,
 			);
 			path = graph;
 			sourceTree = "<group>";
@@ -636,7 +637,7 @@
 				EBB0190F18865CC000D40063 /* InExVC.m in Sources */,
 				EBB0191818865CEB00D40063 /* MainViewController.m in Sources */,
 				EB8C76B71860488900BCA860 /* mgVC.m in Sources */,
-				EB8C76CD186049A300BCA860 /* Comment.m in Sources */,
+				EB8C76CD186049A300BCA860 /* CommentVC.m in Sources */,
 				EB8C77151860509B00BCA860 /* AdministrationViewController.m in Sources */,
 				EBB0190E18865CC000D40063 /* Comments.m in Sources */,
 				EB8C76731860475B00BCA860 /* main.m in Sources */,
@@ -693,6 +694,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EB8C772E1860556600BCA860 /* en */,
+				EB86A88A195A72F8003E3ECC /* ja */,
 			);
 			name = MainStoryboard.storyboard;
 			path = ..;

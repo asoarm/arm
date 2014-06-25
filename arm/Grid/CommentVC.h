@@ -1,5 +1,5 @@
 //
-//  Comment.h
+//  CommentVC.h
 //  arm
 //
 //  Created by Owner on 2013/12/17.
@@ -11,7 +11,7 @@
 #import "Enterprise.h"
 #import "Choice.h"
 
-@interface Comment : UIViewController<UITextViewDelegate,UIGestureRecognizerDelegate>{
+@interface CommentVC : UIViewController<UITextViewDelegate,UIGestureRecognizerDelegate>{
     NSMutableArray *pcVC_cn;
     NSMutableArray *cho_flg;
     QuestionDetail *questiondetail;
