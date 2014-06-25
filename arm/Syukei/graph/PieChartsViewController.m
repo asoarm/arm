@@ -7,7 +7,7 @@
 //
 
 #import "PieChartsViewController.h"
-#import "Comment.h"
+#import "CommentVC.h"
 #import "ViewSquare.h"
 #import "PieChartsView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -308,7 +308,7 @@
 }
 -(void)cmt{
     //コメントボタンをタップした処理
-    Comment *cmt = [self.storyboard instantiateViewControllerWithIdentifier:@"comment"];
+    CommentVC *cmt = [self.storyboard instantiateViewControllerWithIdentifier:@"comment"];
     cmt.enterprise = enterprise;
     cmt.questiondetail = questiondetail;
     cmt.enterprise = enterprise;

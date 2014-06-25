@@ -1,21 +1,21 @@
 //
-//  Comment.m
+//  CommentVC.m
 //  arm
 //
 //  Created by Owner on 2013/12/17.
 //  Copyright (c) 2013年 jssa. All rights reserved.
 //
 
-#import "Comment.h"
+#import "CommentVC.h"
 #import "ViewSquare.h"
 #import "PieChartsView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FMDatabase.h"
 
-@interface Comment ()
+@interface CommentVC ()
 @end
 
-@implementation Comment
+@implementation CommentVC
 @synthesize questiondetail;
 @synthesize enterprise;
 @synthesize choice1;
