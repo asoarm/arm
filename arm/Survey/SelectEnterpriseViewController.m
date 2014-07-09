@@ -182,7 +182,7 @@
     {
         //Enterpriseクラスのインスタンスを生成
         Enterprise * enterprise = [[Enterprise alloc] init];
-        //インスタンスに属性をセット
+        //インスタンスに値をセット
         enterprise.division = [rs stringForColumn:@"division"];
         enterprise.e_id = [rs stringForColumn:@"e_id"];
         enterprise.e_name = [rs stringForColumn:@"e_name"];

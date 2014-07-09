@@ -9,6 +9,7 @@
 #import "SectionViewController.h"
 #import "FMDatabase.h"
 #import "Section.h"
+#import "SendClass.h"
 
 @interface SectionViewController ()
 
@@ -169,21 +170,22 @@
                     NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
                 }
                 [db setShouldCacheStatements:YES];
-                //指定したe_idでsectionをセレクト
-                NSString*   sql3 = [NSString stringWithFormat:@"select * from Section where e_id = \"%@\" order by e_id,sec_id;",enterprise.e_id];
+                //指定したe_idでテーブル内のデータをカウント
+                NSString*   sql = [NSString stringWithFormat:@"select count(*) as count from Section where e_id = \"%@\";",enterprise.e_id];
                 
-                FMResultSet* rs2 = [db executeQuery:sql3];
+                FMResultSet* rs = [db executeQuery:sql];
                 
-                NSString *str2;
-                while( [rs2 next] )
+                int count;
+                while([rs next])
                 {
-                    str2 = [rs2 stringForColumn:@"sec_id"];
+                    count = [[rs stringForColumn:@"count"] intValue];
                 }
                 
-                [rs2 close];
+                [rs close];
                 
+                NSString *sec_name = [alertView textFieldAtIndex:0].text;
                 
-                if(!([str2 isEqual:@""]) && !(str2 == nil)){
+                if(!count == 0){
                     //既に課コードが入っていた場合
                     NSString* sqlsec = [NSString stringWithFormat:@"SELECT * FROM Section WHERE e_id = \"%@\" and sec_name = \"%@\";",enterprise.e_id,[alertView textFieldAtIndex:0].text];
                     FMResultSet* rssec = [db executeQuery:sqlsec];
@@ -195,16 +197,20 @@
                     if(([strsec isEqual:@""]) || (strsec == nil))
                     {
                         //同じ課名がない場合
-                        //文字列置換　SECを取り除く
-                        NSString *resultS = [str2 stringByReplacingOccurrencesOfString:@"SEC" withString:@""];
+                        int iS = count + 101;
                         
-                        int iS = [resultS intValue];
+                        NSString *sec_id = [ NSString stringWithFormat : @"SEC%d",iS];
                         
-                        iS = iS + 1;
+                        //サーバーへデータを送信
+                        SendClass *sendclass = [SendClass alloc];
                         
-                        NSString* sql4 = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"SEC%d\",\"%@\");",enterprise.e_id,iS,[alertView textFieldAtIndex:0].text];
+                        [sendclass sendSection:enterprise.e_id and:sec_id and:sec_name];
                         
-                        [db executeUpdate:sql4];
+                        //SQL実行
+                        NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"%@\",\"%@\");",enterprise.e_id,sec_id,sec_name];
+                        
+                        [db executeUpdate:sqlinsert];
+                        
                     }else{
                         NSString *body = @"その課名はすでに登録済みです";
                         
@@ -213,9 +219,15 @@
                     }
                 }else{
                     //入っていなかった場合
-                    NSString* sql4 = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"SEC101\",\"%@\");",enterprise.e_id,[alertView textFieldAtIndex:0].text];
+                    //サーバーへデータを送信
+                    SendClass *sendclass = [SendClass alloc];
                     
-                    [db executeUpdate:sql4];
+                    [sendclass sendSection:enterprise.e_id and:@"SEC101" and:sec_name];
+                    
+                    //SQL実行
+                    NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"SEC101\",\"%@\");",enterprise.e_id,sec_name];
+                    
+                    [db executeUpdate:sqlinsert];
                 }
                 
                 [db close];

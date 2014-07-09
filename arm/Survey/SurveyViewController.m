@@ -15,7 +15,8 @@
 #import "SurveyViewStringController.h"
 #import "EndViewController.h"
 #import "Answer.h"
-
+#import "SendClass.h"
+#import "SVProgressHUD.h"
 
 @interface SurveyViewController ()
 
@@ -314,31 +315,15 @@
         
         [db executeUpdate:sql];
         
-        //select temporary
-        NSString*   sql1 = [NSString stringWithFormat :@"SELECT * from Temporary order by e_id,sec_id,sur_id,q_id,qd_id;"];
+        //くるくる表示
+        [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
         
-        FMResultSet*    rs = [db executeQuery:sql1];
-
-        while( [rs next] )
-        {
-            Answer *answer = [[Answer alloc] init];
-            answer.e_id = [rs stringForColumn:@"e_id"];
-            answer.sec_id = [rs stringForColumn:@"sec_id"];
-            answer.sur_id = [rs stringForColumn:@"sur_id"];
-            answer.q_id = [rs stringForColumn:@"q_id"];
-            answer.qd_id = [rs stringForColumn:@"qd_id"];
-            answer.ans_date = [rs stringForColumn:@"ans_date"];
-            answer.answerer = [rs stringForColumn:@"answerer"];
-            answer.charge = [rs stringForColumn:@"charge"];
-            answer.ans_cho = [rs stringForColumn:@"ans_cho"];
-            answer.ans_str = [rs stringForColumn:@"ans_str"];
-            answer.memo = [rs stringForColumn:@"memo"];
-            NSString*   sql = [ NSString stringWithFormat : @"INSERT INTO Answer VALUES(\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");", answer.sur_id,answer.q_id,answer.qd_id,answer.e_id,answer.sec_id,answer.ans_date,answer.answerer,answer.charge,answer.ans_cho,answer.ans_str,answer.memo];
-            
-            [db executeUpdate:sql];
-        }
+        //結果をサーバーに送信
+        SendClass *sendclass = [SendClass alloc];
+        [sendclass sendAnswer:db];
         
-        [rs close];
+        //くるくる非表示
+        [SVProgressHUD dismiss];
         
         [db close];
         

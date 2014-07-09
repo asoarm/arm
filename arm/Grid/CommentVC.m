@@ -308,7 +308,7 @@
                 
             NSString* sql2 = [NSString stringWithFormat:@"INSERT OR REPLACE INTO Comment VALUES (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",questiondetail.sur_id,questiondetail.q_id,questiondetail.qd_id,enterprise.e_id,comment.text];
                 
-                [db executeUpdate:sql2];
+            [db executeUpdate:sql2];
         }
     }
     [self.navigationController popViewControllerAnimated:YES];

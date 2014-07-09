@@ -13,6 +13,9 @@
 #import "StartViewController.h"
 #import "Survey.h"
 #import "Enterprise.h"
+#import "ImportTable.h"
+#import "SVProgressHUD.h"
+
 @interface SelectSectionViewController ()
 
 @end
@@ -73,7 +76,7 @@
     {
         //Enterpriseクラスのインスタンス生成
         Enterprise *enter = [[Enterprise alloc] init];
-        //インスタンスに属性をセット
+        //インスタンスに値をセット
         enter.division = enterprise.division;
         enter.e_id = enterprise.e_id;
         enter.e_name = enterprise.e_name;
@@ -82,6 +85,10 @@
         //配列にインスタンスを挿入
         [mEnterprise addObject:enter];
     }
+    
+    //Temporaryテーブル初期化
+    NSString *dltsql = @"DELETE from Temporary;";
+    [db executeUpdate:dltsql];
     
     //DB終了
     [rs close];
@@ -185,10 +192,50 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    enterprise = [mEnterprise objectAtIndex:indexPath.row];
+    
+    //現在日付を取得
+    NSDate *nowdate = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    NSString *datemoji = [formatter stringFromDate:nowdate];
+    
+    //DB接続処理
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+
+    //くるくる表示
+    [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
+    
+    //日付が同じ回答がサーバーにある場合Temporaryテーブルへ入れる
+    ImportTable *importtable = [ImportTable alloc];
+    [importtable importTemporary:db and:survey.sur_id and:enterprise.e_id and:enterprise.sec_id and:datemoji];
+    
+    //DB終了
+    [db close];
+
+    //くるくる非表示
+    [SVProgressHUD dismiss];
+    
     //Start画面へ遷移
     StartViewController *startViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
     startViewController.enterprise = [mEnterprise objectAtIndex:indexPath.row];
-
     startViewController.survey = survey;
     [self.navigationController pushViewController:startViewController animated:YES];
 }

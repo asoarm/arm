@@ -76,7 +76,7 @@
         {
             //Questionクラスのインスタンスを生成
             Question *QD = [[Question alloc] init];
-            //インスタンスに属性をセット
+            //インスタンスに値をセット
             QD.cho_division = [rs stringForColumn:@"cho_division"];
             //配列にインスタンスを挿入
             [mQD addObject:QD];
