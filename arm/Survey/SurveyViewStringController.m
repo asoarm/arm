@@ -202,7 +202,7 @@
         //現在日付を取得
         NSDate *nowdate = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy/MM/dd"];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
         NSString *datemoji = [formatter stringFromDate:nowdate];
         
         //回答を仮テーブルに保存
@@ -262,7 +262,7 @@
         //現在日付を取得
         NSDate *nowdate = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy/MM/dd"];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
         NSString *datemoji = [formatter stringFromDate:nowdate];
         
         //回答をDBに保存
@@ -419,7 +419,7 @@
     //現在日付を取得
     NSDate *nowdate = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *datemoji = [formatter stringFromDate:nowdate];
     
     NSString*   sql = [ NSString stringWithFormat : @"select ans_str,memo from Temporary where sur_id = \"%@\" and q_id = \"%@\" and qd_id = \"%@\" and e_id = \"%@\" and sec_id = \"%@\" and ans_date = \"%@\";",survey.sur_id,questions.q_id,questions.qd_id,enterprise.e_id,enterprise.sec_id,datemoji];

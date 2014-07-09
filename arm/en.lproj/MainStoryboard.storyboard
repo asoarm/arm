@@ -281,7 +281,6 @@
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="iMq-kZ-Bnt" eventType="touchUpInside" id="0ws-hs-qXZ"/>
-                                    <action selector="next:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="OyR-GG-WaX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pBp-93-m4D">
@@ -606,7 +605,6 @@
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="9uC-3k-7w9"/>
-                                    <action selector="next:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="yqp-O3-19U"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="epA-aA-PmS">
