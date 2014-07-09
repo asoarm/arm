@@ -196,7 +196,7 @@
     {
         //Surveyクラスのインスタンスを生成
         Survey * survey = [[Survey alloc] init];
-        //インスタンスに属性をセット
+        //インスタンスに値をセット
         survey.sur_id = [rs stringForColumn:@"sur_id"];
         survey.sur_name = [rs stringForColumn:@"sur_name"];
         survey.sur_division = [rs stringForColumn:@"sur_division"];

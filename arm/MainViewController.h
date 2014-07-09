@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
+- (IBAction)pushEnterprise:(id)sender;
+- (IBAction)pushSurvey:(id)sender;
 - (IBAction)data:(id)sender;
 @end

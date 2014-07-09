@@ -11,6 +11,7 @@
 #import "FMDatabase.h"
 #import "SectionViewController.h"
 #import "MainViewController.h"
+#import "SendClass.h"
 
 @interface PrivateMasterTableViewController ()
 
@@ -183,38 +184,64 @@
                 }
                 [db setShouldCacheStatements:YES];
                 
-                // NSUserDefaultsからデータを読み込む
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];  // 取得
-                int i = [defaults integerForKey:@"KEY_I"];  // KEY_Iの内容をint型として取得
-                
-                //同じ名前の会社がない場合
-                NSString* sqlname = [NSString stringWithFormat:@"select * from Enterprise where e_name = \"%@\";",[alertView textFieldAtIndex:0].text];
-                FMResultSet* rsname = [db executeQuery:sqlname];
-                NSString *strname;
-                while( [rsname next] )
-                {
-                    strname = [rsname stringForColumn:@"e_id"];
+                //テーブル内のデータをカウント
+                NSString*   sqlep = [NSString stringWithFormat:@"select count(*) as count from Enterprise;"];
+            
+                FMResultSet* rsep = [db executeQuery:sqlep];
+                int count;
+                while([rsep next]){
+                    count = [[rsep stringForColumn:@"count"] intValue];
                 }
-                [rsname close];
                 
-                if (strname == nil || [strname isEqual:@""]) {
+                [rsep close];
+                
+                NSString *e_name = [alertView textFieldAtIndex:0].text;
+                
+                if(!count == 0){
+                    //既にデータが入っていた場合
+                    NSString* sqlname = [NSString stringWithFormat:@"select * from Enterprise where e_name = \"%@\";",e_name];
+                    FMResultSet* rsname = [db executeQuery:sqlname];
+                    NSString *strname;
+                    while( [rsname next] )
+                    {
+                        strname = [rsname stringForColumn:@"e_id"];
+                    }
+                    [rsname close];
                     
-                    NSString* sql2 = [NSString stringWithFormat:@"INSERT INTO Enterprise VALUES(\"E%d\",\"%@\",\"%@\");",i,[alertView textFieldAtIndex:0].text,division];
-                    
-                    [db executeUpdate:sql2];
-                    
-                    i = i + 1;
-                    
-                    // NSUserDefaultsに保存する
-                    [defaults setInteger:i forKey:@"KEY_I"];
-                    // 設定を保存
-                    [defaults synchronize];
+                    if (strname == nil || [strname isEqual:@""]) {
+                        //同じ名前の会社がない場合
+                        int iEp = count + 10001;
+                        
+                        NSString *e_id = [ NSString stringWithFormat : @"E%d",iEp];
+                        
+                        //サーバーへデータを送信
+                        SendClass *sendclass = [SendClass alloc];
+                        
+                        [sendclass sendEnterprise:e_id and:e_name and:division];
+                        
+                        //SQL実行
+                        NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Enterprise VALUES(\"%@\",\"%@\",\"%@\");", e_id, e_name, division];
+                        
+                        [db executeUpdate:sqlinsert];
+                        
+                    }else{
+                        NSString *body = @"その団体名はすでに登録済みです";
+                        
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:body delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alertView show];
+                        
+                    }
                 }else{
-                    NSString *body = @"その団体名はすでに登録済みです";
+                    //入っていなかった場合
+                    //サーバーへデータを送信
+                    SendClass *sendclass = [SendClass alloc];
                     
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:body delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alertView show];
+                    [sendclass sendEnterprise:@"E10001" and:e_name and:division];
                     
+                    //SQL実行
+                    NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Enterprise VALUES(\"E10001\",\"%@\",\"%@\");", e_name, division];
+                    
+                    [db executeUpdate:sqlinsert];
                 }
                 [self viewWillAppear:YES];
             }else{

@@ -73,6 +73,7 @@
     //Temporaryのデータを空にする
     NSString*   delete = @"DELETE FROM Temporary";
     [db executeUpdate:delete];
+    
     [db close];
 }
 @end

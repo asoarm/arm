@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69BDC361195A77FE00262BAE /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC360195A77FE00262BAE /* Comment.m */; };
+		69BDC36D19624F9700262BAE /* ImportTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC36A19624F9700262BAE /* ImportTable.m */; };
+		69BDC36E19624F9700262BAE /* SendClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC36C19624F9700262BAE /* SendClass.m */; };
+		69BDC37419665EB300262BAE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC37319665EB300262BAE /* SVProgressHUD.m */; };
 		69D39C0418968F0B00FC6785 /* NotesFolderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D39C0318968F0B00FC6785 /* NotesFolderListController.m */; };
 		EB8C76671860475B00BCA860 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8C76661860475B00BCA860 /* Foundation.framework */; };
 		EB8C76691860475B00BCA860 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8C76681860475B00BCA860 /* CoreGraphics.framework */; };
@@ -90,8 +94,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		69BDC35F195A77FE00262BAE /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		69BDC360195A77FE00262BAE /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		69BDC36919624F9700262BAE /* ImportTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportTable.h; sourceTree = "<group>"; };
+		69BDC36A19624F9700262BAE /* ImportTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportTable.m; sourceTree = "<group>"; };
+		69BDC36B19624F9700262BAE /* SendClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendClass.h; sourceTree = "<group>"; };
+		69BDC36C19624F9700262BAE /* SendClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendClass.m; sourceTree = "<group>"; };
+		69BDC37219665EB300262BAE /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		69BDC37319665EB300262BAE /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		69D39C0318968F0B00FC6785 /* NotesFolderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesFolderListController.m; sourceTree = "<group>"; };
-		EB86A88A195A72F8003E3ECC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		EB8C76631860475B00BCA860 /* arm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8C76661860475B00BCA860 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EB8C76681860475B00BCA860 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -251,6 +262,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		69BDC36819624F9700262BAE /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				69BDC36919624F9700262BAE /* ImportTable.h */,
+				69BDC36A19624F9700262BAE /* ImportTable.m */,
+				69BDC36B19624F9700262BAE /* SendClass.h */,
+				69BDC36C19624F9700262BAE /* SendClass.m */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
 		EB8C765A1860475B00BCA860 = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +316,7 @@
 				EBB0191618865CEB00D40063 /* MainViewController.h */,
 				EBB0191718865CEB00D40063 /* MainViewController.m */,
 				EB8C76D418604B2B00BCA860 /* FMDB */,
+				69BDC36819624F9700262BAE /* Json */,
 				EBB018F918865CC000D40063 /* Import&Export */,
 				EB8C76BE186049A300BCA860 /* Grid */,
 				EB8C76FE1860509B00BCA860 /* Survey */,
@@ -308,6 +331,8 @@
 		EB8C766D1860475B00BCA860 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69BDC37219665EB300262BAE /* SVProgressHUD.h */,
+				69BDC37319665EB300262BAE /* SVProgressHUD.m */,
 				EB8C766E1860475B00BCA860 /* arm-Info.plist */,
 				EB8C766F1860475B00BCA860 /* InfoPlist.strings */,
 				EB8C76721860475B00BCA860 /* main.m */,
@@ -373,6 +398,8 @@
 				EB8C76A41860488800BCA860 /* ViewSquare.m */,
 				EB8C76BF186049A300BCA860 /* CommentVC.h */,
 				EB8C76C0186049A300BCA860 /* CommentVC.m */,
+				69BDC35F195A77FE00262BAE /* Comment.h */,
+				69BDC360195A77FE00262BAE /* Comment.m */,
 			);
 			path = graph;
 			sourceTree = "<group>";
@@ -610,9 +637,11 @@
 				EB8C76BA1860488900BCA860 /* QuestionVC.m in Sources */,
 				EBB0191418865CC000D40063 /* SettingsController.m in Sources */,
 				EB8C76B61860488900BCA860 /* ViewSquare.m in Sources */,
+				69BDC36E19624F9700262BAE /* SendClass.m in Sources */,
 				EB8C76B41860488900BCA860 /* PieChartsView.m in Sources */,
 				EBB0191118865CC000D40063 /* NoteController.m in Sources */,
 				EB8C77251860511200BCA860 /* UIColor_Expanded.m in Sources */,
+				69BDC37419665EB300262BAE /* SVProgressHUD.m in Sources */,
 				EB8C77241860511200BCA860 /* UIButton+BGColor.m in Sources */,
 				EB8C76F918604F8D00BCA860 /* Enterprise.m in Sources */,
 				EB8C76D0186049A300BCA860 /* GridQuestionVC.m in Sources */,
@@ -620,6 +649,7 @@
 				EB8C76BD1860488900BCA860 /* SyukeiViewController.m in Sources */,
 				EB8C76E218604B2B00BCA860 /* FMDatabaseQueue.m in Sources */,
 				EB8C76BC1860488900BCA860 /* SyukeiDivisionViewController.m in Sources */,
+				69BDC36D19624F9700262BAE /* ImportTable.m in Sources */,
 				EBB018F818865C6700D40063 /* AppDelegate.m in Sources */,
 				EB8C771E1860509B00BCA860 /* SurveyViewController.m in Sources */,
 				EB8C771D1860509B00BCA860 /* Survey.m in Sources */,
@@ -631,6 +661,7 @@
 				EB8C76CF186049A300BCA860 /* GridColumn.m in Sources */,
 				EB8C771F1860509B00BCA860 /* SurveyViewStringController.m in Sources */,
 				EB8C77181860509B00BCA860 /* EndViewController.m in Sources */,
+				69BDC361195A77FE00262BAE /* Comment.m in Sources */,
 				EB8C77171860509B00BCA860 /* DivisionViewController.m in Sources */,
 				EB8C76D3186049A300BCA860 /* User.m in Sources */,
 				EBB0190D18865CC000D40063 /* Answer.m in Sources */,
@@ -694,7 +725,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				EB8C772E1860556600BCA860 /* en */,
-				EB86A88A195A72F8003E3ECC /* ja */,
 			);
 			name = MainStoryboard.storyboard;
 			path = ..;
