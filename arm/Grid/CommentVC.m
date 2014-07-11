@@ -11,6 +11,7 @@
 #import "PieChartsView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FMDatabase.h"
+#import "SendClass.h"
 
 @interface CommentVC ()
 @end
@@ -305,7 +306,11 @@
                 NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
             }
             [db setShouldCacheStatements:YES];
-                
+            
+            SendClass *sendclass = [SendClass alloc];
+            //サーバーへデータを送信
+            [sendclass sendComment:questiondetail.sur_id and:questiondetail.q_id and:questiondetail.qd_id and:enterprise.e_id and:comment.text];
+            
             NSString* sql2 = [NSString stringWithFormat:@"INSERT OR REPLACE INTO Comment VALUES (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",questiondetail.sur_id,questiondetail.q_id,questiondetail.qd_id,enterprise.e_id,comment.text];
                 
             [db executeUpdate:sql2];

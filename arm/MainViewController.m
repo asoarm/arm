@@ -14,6 +14,7 @@
 #import "SVProgressHUD.h"
 #import "EnterpriseDivisionViewController.h"
 #import "DivisionViewController.h"
+#import "SyukeiDivisionViewController.h"
 
 @interface MainViewController ()
 @property (nonatomic, retain) SettingsController *settingsController;
@@ -223,6 +224,49 @@
     //画面遷移
     DivisionViewController *enterpriseDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DivisionView"];
     [self presentViewController:enterpriseDivisionViewController animated:YES completion:nil];
+}
+
+- (IBAction)pushSyukei:(id)sender {
+    //くるくる表示
+    [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
+    
+    //データベース作成・接続
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //サーバーからデータを内部DBへ入れる
+    ImportTable *importtable = [ImportTable alloc];
+    [importtable importEnterprise:db];
+    [importtable importSection:db];
+    [importtable importSurvey:db];
+    [importtable importQuestion:db];
+    [importtable importChoice:db];
+    [importtable importQuestionDetail:db];
+    
+    [db close];
+    
+    //くるくる非表示
+    [SVProgressHUD dismiss];
+    
+    //画面遷移
+    SyukeiDivisionViewController *syukeiDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SyukeiDivisionView"];
+    [self presentViewController:syukeiDivisionViewController animated:YES completion:nil];
 }
 
 - (IBAction)data:(id)sender

@@ -16,8 +16,10 @@
 -(void)importChoice:(FMDatabase*) db;
 -(void)importEnterprise:(FMDatabase*) db;
 -(void)importSection:(FMDatabase*) db;
--(void)importComment:(FMDatabase*) db;
--(void)importAnswer:(FMDatabase*) db;
+-(void)importComment:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id;
+//選択した団体とアンケートのコメントをサーバーから内部DBへ
+-(void)importAnswer:(FMDatabase*) db and :(NSString*)e_id;
+//選択した団体の回答をサーバーから内部DBへ
 -(void)importTemporary:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id and
                       :(NSString*)sec_id and :(NSString*)ans_date;
 @end

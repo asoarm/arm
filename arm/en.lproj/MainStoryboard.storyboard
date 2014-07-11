@@ -121,7 +121,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Q5g-bs-Yyw" kind="modal" id="2Jw-PK-iks"/>
+                                    <action selector="pushSyukei:" destination="2" eventType="touchUpInside" id="uhu-j3-KKm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -133,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162" y="-1139"/>
+            <point key="canvasLocation" x="-1200" y="-1107"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7OU-e1-cu6">
@@ -281,7 +281,6 @@
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="iMq-kZ-Bnt" eventType="touchUpInside" id="0ws-hs-qXZ"/>
-                                    <action selector="next:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="OyR-GG-WaX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pBp-93-m4D">
@@ -606,7 +605,6 @@
                                 </state>
                                 <connections>
                                     <action selector="back:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="9uC-3k-7w9"/>
-                                    <action selector="next:" destination="VgM-GM-Gi5" eventType="touchUpInside" id="yqp-O3-19U"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="epA-aA-PmS">
@@ -1173,6 +1171,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jjo-xh-qqe"/>
+        <segue reference="Zuz-Jh-Tdj"/>
     </inferredMetricsTieBreakers>
 </document>

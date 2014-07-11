@@ -197,7 +197,7 @@
     //現在日付を取得
     NSDate *nowdate = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *datemoji = [formatter stringFromDate:nowdate];
     
     //DB接続処理

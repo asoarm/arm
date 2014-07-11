@@ -9,6 +9,7 @@
 #import "SurveyVC.h"
 #import "FMDatabase.h"
 #import "mgVC.h"
+#import "Importtable.h"
 
 @interface SurveyVC ()
 
@@ -87,9 +88,40 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        //セルをタップした処理
+    Survey *survey = [mSurvey objectAtIndex:indexPath.row];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //テーブル初期化
+    NSString *sql = @"DELETE from Comment;";
+    [db executeUpdate:sql];
+    
+    ImportTable *importtable = [ImportTable alloc];
+    
+    [importtable importComment:db and :survey.sur_id and :enterprise.e_id];
+    
+    [db close];
+    
+    //セルをタップした処理
     mgVC *mgvc = [self.storyboard instantiateViewControllerWithIdentifier:@"mg"];
-    mgvc.survey= [mSurvey objectAtIndex:indexPath.row];
+    mgvc.survey= survey;
     mgvc.enterprise = enterprise;
     [self.navigationController pushViewController: mgvc animated:YES];
 }
@@ -125,7 +157,5 @@
     
     [rs close];
     [db close];
-
 }
-
 @end
