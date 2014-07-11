@@ -577,7 +577,6 @@
             [self selectchoice1];
         }else if([cho.choice2 isEqual: [NSString stringWithFormat:@"%@",answer.ans_cho]]){
             [self selectchoice2];
-            
         }else if([cho.choice3 isEqual: [NSString stringWithFormat:@"%@",answer.ans_cho]]){
             [self selectchoice3];
         }else if([cho.choice4 isEqual: [NSString stringWithFormat:@"%@",answer.ans_cho]]){
