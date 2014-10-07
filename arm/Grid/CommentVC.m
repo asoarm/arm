@@ -309,7 +309,27 @@
             
             SendClass *sendclass = [SendClass alloc];
             //サーバーへデータを送信
-            [sendclass sendComment:questiondetail.sur_id and:questiondetail.q_id and:questiondetail.qd_id and:enterprise.e_id and:comment.text];
+            NSString* setflg1 = [sendclass sendComment:questiondetail.sur_id and:questiondetail.q_id and:questiondetail.qd_id and:enterprise.e_id and:comment.text];
+            
+            if([setflg1 isEqualToString:@"NetworkError"]){
+                UIAlertView *alertView =
+                [[UIAlertView alloc]
+                 initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+                 cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                [alertView show];
+                
+                return;
+            }
+            
+            if([setflg1 isEqualToString:@"Error"]){
+                UIAlertView *alertView =
+                [[UIAlertView alloc]
+                 initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+                 cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                [alertView show];
+                
+                return;
+            }
             
             NSString* sql2 = [NSString stringWithFormat:@"INSERT OR REPLACE INTO Comment VALUES (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",questiondetail.sur_id,questiondetail.q_id,questiondetail.qd_id,enterprise.e_id,comment.text];
                 

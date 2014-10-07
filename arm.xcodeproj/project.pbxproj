@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69461C6119A5296D001F4DD0 /* ImportTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 69461C6019A5296D001F4DD0 /* ImportTable.m */; };
 		69BDC361195A77FE00262BAE /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC360195A77FE00262BAE /* Comment.m */; };
-		69BDC36D19624F9700262BAE /* ImportTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC36A19624F9700262BAE /* ImportTable.m */; };
 		69BDC36E19624F9700262BAE /* SendClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC36C19624F9700262BAE /* SendClass.m */; };
 		69BDC37419665EB300262BAE /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BDC37319665EB300262BAE /* SVProgressHUD.m */; };
 		69D39C0418968F0B00FC6785 /* NotesFolderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D39C0318968F0B00FC6785 /* NotesFolderListController.m */; };
@@ -94,10 +94,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		69461C5F19A5296D001F4DD0 /* ImportTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportTable.h; sourceTree = "<group>"; };
+		69461C6019A5296D001F4DD0 /* ImportTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportTable.m; sourceTree = "<group>"; };
 		69BDC35F195A77FE00262BAE /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		69BDC360195A77FE00262BAE /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
-		69BDC36919624F9700262BAE /* ImportTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportTable.h; sourceTree = "<group>"; };
-		69BDC36A19624F9700262BAE /* ImportTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportTable.m; sourceTree = "<group>"; };
 		69BDC36B19624F9700262BAE /* SendClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendClass.h; sourceTree = "<group>"; };
 		69BDC36C19624F9700262BAE /* SendClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendClass.m; sourceTree = "<group>"; };
 		69BDC37219665EB300262BAE /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
@@ -265,8 +265,8 @@
 		69BDC36819624F9700262BAE /* Json */ = {
 			isa = PBXGroup;
 			children = (
-				69BDC36919624F9700262BAE /* ImportTable.h */,
-				69BDC36A19624F9700262BAE /* ImportTable.m */,
+				69461C5F19A5296D001F4DD0 /* ImportTable.h */,
+				69461C6019A5296D001F4DD0 /* ImportTable.m */,
 				69BDC36B19624F9700262BAE /* SendClass.h */,
 				69BDC36C19624F9700262BAE /* SendClass.m */,
 			);
@@ -649,7 +649,6 @@
 				EB8C76BD1860488900BCA860 /* SyukeiViewController.m in Sources */,
 				EB8C76E218604B2B00BCA860 /* FMDatabaseQueue.m in Sources */,
 				EB8C76BC1860488900BCA860 /* SyukeiDivisionViewController.m in Sources */,
-				69BDC36D19624F9700262BAE /* ImportTable.m in Sources */,
 				EBB018F818865C6700D40063 /* AppDelegate.m in Sources */,
 				EB8C771E1860509B00BCA860 /* SurveyViewController.m in Sources */,
 				EB8C771D1860509B00BCA860 /* Survey.m in Sources */,
@@ -659,6 +658,7 @@
 				EB8C77191860509B00BCA860 /* PrivateViewController.m in Sources */,
 				EBB0191518865CC000D40063 /* Util.m in Sources */,
 				EB8C76CF186049A300BCA860 /* GridColumn.m in Sources */,
+				69461C6119A5296D001F4DD0 /* ImportTable.m in Sources */,
 				EB8C771F1860509B00BCA860 /* SurveyViewStringController.m in Sources */,
 				EB8C77181860509B00BCA860 /* EndViewController.m in Sources */,
 				69BDC361195A77FE00262BAE /* Comment.m in Sources */,

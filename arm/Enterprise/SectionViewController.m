@@ -204,7 +204,27 @@
                         //サーバーへデータを送信
                         SendClass *sendclass = [SendClass alloc];
                         
-                        [sendclass sendSection:enterprise.e_id and:sec_id and:sec_name];
+                        NSString* setflg1 = [sendclass sendSection:enterprise.e_id and:sec_id and:sec_name];
+                        
+                        if([setflg1 isEqualToString:@"NetworkError"]){
+                            UIAlertView *alertView =
+                            [[UIAlertView alloc]
+                             initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+                             cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                            [alertView show];
+                            
+                            return;
+                        }
+                        
+                        if([setflg1 isEqualToString:@"Error"]){
+                            UIAlertView *alertView =
+                            [[UIAlertView alloc]
+                             initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+                             cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                            [alertView show];
+                            
+                            return;
+                        }
                         
                         //SQL実行
                         NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"%@\",\"%@\");",enterprise.e_id,sec_id,sec_name];
@@ -222,7 +242,27 @@
                     //サーバーへデータを送信
                     SendClass *sendclass = [SendClass alloc];
                     
-                    [sendclass sendSection:enterprise.e_id and:@"SEC101" and:sec_name];
+                    NSString* setflg1 = [sendclass sendSection:enterprise.e_id and:@"SEC101" and:sec_name];
+                    
+                    if([setflg1 isEqualToString:@"NetworkError"]){
+                        UIAlertView *alertView =
+                        [[UIAlertView alloc]
+                         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+                         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                        [alertView show];
+                        
+                        return;
+                    }
+                    
+                    if([setflg1 isEqualToString:@"Error"]){
+                        UIAlertView *alertView =
+                        [[UIAlertView alloc]
+                         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+                         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+                        [alertView show];
+                        
+                        return;
+                    }
                     
                     //SQL実行
                     NSString* sqlinsert = [NSString stringWithFormat:@"INSERT INTO Section VALUES(\"%@\",\"SEC101\",\"%@\");",enterprise.e_id,sec_name];

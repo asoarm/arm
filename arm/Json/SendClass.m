@@ -10,7 +10,7 @@
 #import "Answer.h"
 @implementation SendClass
 
--(void)sendAnswerData:(NSData *)data{
+-(NSString*)sendAnswerData:(NSData *)data{
     NSLog(@"%s", __func__);
     
     NSError *error = nil;
@@ -31,10 +31,6 @@
         NSString *stringJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
         NSLog(@"stringJSON = %@", stringJSON);
         
-        NSURLSessionConfiguration *URLSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        
-        NSURLSession *URLSession = [NSURLSession sessionWithConfiguration:URLSessionConfiguration delegate:self delegateQueue:nil];
-        
         NSString *URLString = @"http://asoarm.chobi.net/getanswer.php";
         NSURL *URL = [NSURL URLWithString:URLString];
         
@@ -44,19 +40,20 @@
         [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [mutableURLRequest setHTTPBody:dataJSON];
         
-        NSURLSessionDataTask *URLSessionDataTask = [URLSession dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-            [URLSession invalidateAndCancel];
-            NSLog(@"%@",response);
-        }];
-        
-        [URLSessionDataTask resume];
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:&response error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }
     }
-    
+    return @"Success";
 }
--(void)sendAnswer:(FMDatabase*)db{
+-(NSString*)sendAnswer:(FMDatabase*)db{
     //Answerを全てSELECT
     NSString*   sql = @"SELECT * FROM Temporary;";
     FMResultSet*    rs = [db executeQuery:sql];
@@ -116,9 +113,11 @@
     NSLog(@"%@",all);
     NSData *data = [all dataUsingEncoding:NSUTF8StringEncoding];
     
-    [self sendAnswerData:data];
+    NSString* str = [self sendAnswerData:data];
+    
+    return str;
 }
--(void)sendCommentData:(NSData *)data{
+-(NSString*)sendCommentData:(NSData *)data{
     
     NSLog(@"%s", __func__);
     
@@ -140,10 +139,6 @@
         NSString *stringJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
         NSLog(@"stringJSON = %@", stringJSON);
         
-        NSURLSessionConfiguration *URLSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        
-        NSURLSession *URLSession = [NSURLSession sessionWithConfiguration:URLSessionConfiguration delegate:self delegateQueue:nil];
-        
         NSString *URLString = @"http://asoarm.chobi.net/getcomment.php";
         NSURL *URL = [NSURL URLWithString:URLString];
         
@@ -153,19 +148,20 @@
         [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [mutableURLRequest setHTTPBody:dataJSON];
         
-        NSURLSessionDataTask *URLSessionDataTask = [URLSession dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-            [URLSession invalidateAndCancel];
-            NSLog(@"%@",response);
-        }];
-        
-        [URLSessionDataTask resume];
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:&response error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }
     }
-    
+    return @"Success";
 }
--(void)sendComment:(NSString*)sur_id and :(NSString*)q_id and
+-(NSString*)sendComment:(NSString*)sur_id and :(NSString*)q_id and
                   :(NSString*)qd_id and :(NSString*)e_id and :(NSString*)comment{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
@@ -194,10 +190,12 @@
     NSLog(@"%@",all);
     NSData *data = [all dataUsingEncoding:NSUTF8StringEncoding];
     
-    [self sendCommentData:data];
     
+    NSString* str = [self sendCommentData:data];
+    
+    return str;
 }
-- (void)sendEnterpriseData:(NSData *)data{
+- (NSString*)sendEnterpriseData:(NSData *)data{
     NSLog(@"%s", __func__);
     
     NSError *error = nil;
@@ -218,10 +216,6 @@
         NSString *stringJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
         NSLog(@"stringJSON = %@", stringJSON);
         
-        NSURLSessionConfiguration *URLSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        
-        NSURLSession *URLSession = [NSURLSession sessionWithConfiguration:URLSessionConfiguration delegate:self delegateQueue:nil];
-        
         NSString *URLString = @"http://asoarm.chobi.net/getenterprise.php";
         NSURL *URL = [NSURL URLWithString:URLString];
         
@@ -231,18 +225,20 @@
         [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [mutableURLRequest setHTTPBody:dataJSON];
         
-        NSURLSessionDataTask *URLSessionDataTask = [URLSession dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-            [URLSession invalidateAndCancel];
-            NSLog(@"%@",response);
-        }];
-        
-        [URLSessionDataTask resume];
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:&response error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }
     }
+    return @"Success";
 }
-- (void)sendEnterprise:(NSString*)e_id and :(NSString*)e_name and :(NSString*)division{
+- (NSString*)sendEnterprise:(NSString*)e_id and :(NSString*)e_name and :(NSString*)division{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
     
@@ -268,9 +264,12 @@
     NSLog(@"%@",all);
     NSData *data = [all dataUsingEncoding:NSUTF8StringEncoding];
     
-    [self sendEnterpriseData:data];
+    NSString* str = [self sendEnterpriseData:data];
+    
+    return str;
+    
 }
-- (void)sendSectionData:(NSData *)data{
+- (NSString*)sendSectionData:(NSData *)data{
     NSLog(@"%s", __func__);
     
     NSError *error = nil;
@@ -291,10 +290,6 @@
         NSString *stringJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
         NSLog(@"stringJSON = %@", stringJSON);
         
-        NSURLSessionConfiguration *URLSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        
-        NSURLSession *URLSession = [NSURLSession sessionWithConfiguration:URLSessionConfiguration delegate:self delegateQueue:nil];
-        
         NSString *URLString = @"http://asoarm.chobi.net/getsection.php";
         NSURL *URL = [NSURL URLWithString:URLString];
         
@@ -304,18 +299,20 @@
         [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [mutableURLRequest setHTTPBody:dataJSON];
         
-        NSURLSessionDataTask *URLSessionDataTask = [URLSession dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-            [URLSession invalidateAndCancel];
-            NSLog(@"%@",response);
-        }];
-        
-        [URLSessionDataTask resume];
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:&response error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }
     }
+    return @"Success";
 }
-- (void)sendSection:(NSString*)e_id and :(NSString*)sec_id and :(NSString*)sec_name{
+- (NSString*)sendSection:(NSString*)e_id and :(NSString*)sec_id and :(NSString*)sec_name{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
     
@@ -341,6 +338,8 @@
     NSLog(@"%@",all);
     NSData *data = [all dataUsingEncoding:NSUTF8StringEncoding];
     
-    [self sendSectionData:data];
+    NSString* str = [self sendSectionData:data];
+    
+    return str;
 }
 @end

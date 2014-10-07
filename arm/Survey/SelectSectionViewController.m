@@ -225,7 +225,7 @@
     
     //日付が同じ回答がサーバーにある場合Temporaryテーブルへ入れる
     ImportTable *importtable = [ImportTable alloc];
-    [importtable importTemporary:db and:survey.sur_id and:enterprise.e_id and:enterprise.sec_id and:datemoji];
+    NSString* setflg1 = [importtable importTemporary:db and:survey.sur_id and:enterprise.e_id and:enterprise.sec_id and:datemoji];
     
     //DB終了
     [db close];
@@ -233,10 +233,42 @@
     //くるくる非表示
     [SVProgressHUD dismiss];
     
+    if([setflg1 isEqualToString:@"NetworkError"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    if([setflg1 isEqualToString:@"Error"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
     //Start画面へ遷移
     StartViewController *startViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
     startViewController.enterprise = [mEnterprise objectAtIndex:indexPath.row];
     startViewController.survey = survey;
     [self.navigationController pushViewController:startViewController animated:YES];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            //１番目のボタンが押されたときの処理を記述する
+            break;
+        case 1:
+            break;
+    }
 }
 @end

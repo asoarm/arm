@@ -8,113 +8,172 @@
 
 #import "ImportTable.h"
 
-
 @implementation ImportTable
--(void)importSurvey:(FMDatabase*) db{
+-(NSString*)importSurvey:(FMDatabase*) db{
     //Surveyテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/survey.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* sur_id = [json objectForKey:@"sur_id"];
-        NSString* sur_name = [json objectForKey:@"sur_name"];
-        NSString* sur_division = [json objectForKey:@"sur_division"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into Survey values (\"%@\",\"%@\",\"%@\");",sur_id,sur_name,sur_division];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        if (error.code == 256) {
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* sur_id = [json objectForKey:@"sur_id"];
+            NSString* sur_name = [json objectForKey:@"sur_name"];
+            NSString* sur_division = [json objectForKey:@"sur_division"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Survey values (\"%@\",\"%@\",\"%@\");",sur_id,sur_name,sur_division];
+            [db executeUpdate:sql];
+        }
     }
     
+    return @"Success";
 }
--(void)importQuestion:(FMDatabase *)db{
+-(NSString*)importQuestion:(FMDatabase *)db{
     //Questionテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/question.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* q_id = [json objectForKey:@"q_id"];
-        NSString* q_name = [json objectForKey:@"q_name"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into Question values (\"%@\",\"%@\");",q_id,q_name];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        if (error.code == 256) {
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* q_id = [json objectForKey:@"q_id"];
+            NSString* q_name = [json objectForKey:@"q_name"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Question values (\"%@\",\"%@\");",q_id,q_name];
+            [db executeUpdate:sql];
+        }
     }
     
+    return @"Success";
 }
--(void)importQuestionDetail:(FMDatabase*) db{
+-(NSString*)importQuestionDetail:(FMDatabase*) db{
     //QuestionDetailテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/questiondetail.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* sur_id = [json objectForKey:@"sur_id"];
-        NSString* q_id = [json objectForKey:@"q_id"];
-        NSString* qd_id = [json objectForKey:@"qd_id"];
-        NSString* qd_name = [json objectForKey:@"qd_name"];
-        NSString* cho_division = [json objectForKey:@"cho_division"];
-        NSString* cho_id = [json objectForKey:@"cho_id"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into QuestionDetail values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,qd_name,cho_division,cho_id];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        if (error.code == 256) {
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* sur_id = [json objectForKey:@"sur_id"];
+            NSString* q_id = [json objectForKey:@"q_id"];
+            NSString* qd_id = [json objectForKey:@"qd_id"];
+            NSString* qd_name = [json objectForKey:@"qd_name"];
+            NSString* cho_division = [json objectForKey:@"cho_division"];
+            NSString* cho_id = [json objectForKey:@"cho_id"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into QuestionDetail values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,qd_name,cho_division,cho_id];
+            [db executeUpdate:sql];
+        }
     }
+    
+    return @"Succecc";
 }
--(void)importChoice:(FMDatabase*) db{
+-(NSString*)importChoice:(FMDatabase*) db{
     //Choiceテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/choice.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* cho_id = [json objectForKey:@"cho_id"];
-        NSString* choice1 = [json objectForKey:@"choice1"];
-        NSString* choice2 = [json objectForKey:@"choice2"];
-        NSString* choice3 = [json objectForKey:@"choice3"];
-        NSString* choice4 = [json objectForKey:@"choice4"];
-        NSString* choice5 = [json objectForKey:@"choice5"];
-        NSString* choice6 = [json objectForKey:@"choice6"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into Choice values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",cho_id,choice1,choice2,choice3,choice4,choice5,choice6];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        if (error.code == 256) {
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* cho_id = [json objectForKey:@"cho_id"];
+            NSString* choice1 = [json objectForKey:@"choice1"];
+            NSString* choice2 = [json objectForKey:@"choice2"];
+            NSString* choice3 = [json objectForKey:@"choice3"];
+            NSString* choice4 = [json objectForKey:@"choice4"];
+            NSString* choice5 = [json objectForKey:@"choice5"];
+            NSString* choice6 = [json objectForKey:@"choice6"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Choice values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",cho_id,choice1,choice2,choice3,choice4,choice5,choice6];
+            [db executeUpdate:sql];
+        }
     }
+    
+    return @"Success";
 }
--(void)importEnterprise:(FMDatabase*) db{
+-(NSString*)importEnterprise:(FMDatabase*) db{
     //Enterpriseテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/enterprise.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* e_id = [json objectForKey:@"e_id"];
-        NSString* e_name = [json objectForKey:@"e_name"];
-        NSString* division = [json objectForKey:@"division"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into Enterprise values (\"%@\",\"%@\",\"%@\");",e_id,e_name,division];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        NSLog(@"%@",error);
+        if (error.code == 256) {
+            //NETWORKエラー
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* e_id = [json objectForKey:@"e_id"];
+            NSString* e_name = [json objectForKey:@"e_name"];
+            NSString* division = [json objectForKey:@"division"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Enterprise values (\"%@\",\"%@\",\"%@\");",e_id,e_name,division];
+            [db executeUpdate:sql];
+        }
     }
+    
+    return @"Success";
 }
--(void)importSection:(FMDatabase*) db{
+-(NSString*)importSection:(FMDatabase*) db{
     //Sectionテーブルをimportする
     NSURL *jsonUrl = [NSURL URLWithString:@"http://asoarm.chobi.net/data/section.php"];
     NSError *error = nil;
     NSData *jsonData = [NSData dataWithContentsOfURL:jsonUrl options:kNilOptions error:&error];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    
-    for( NSDictionary * json in jsonResponse )
-    {
-        NSString* e_id = [json objectForKey:@"e_id"];
-        NSString* sec_id = [json objectForKey:@"sec_id"];
-        NSString* sec_name = [json objectForKey:@"sec_name"];
-        NSString*   sql = [ NSString stringWithFormat :@"insert into Section values (\"%@\",\"%@\",\"%@\");",e_id,sec_id,sec_name];
-        [db executeUpdate:sql];
+    if (error) {
+        // error処理
+        if (error.code == 256) {
+            return @"NetworkError";
+        }
+        return @"Error";
+    }else{
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        for( NSDictionary * json in jsonResponse )
+        {
+            NSString* e_id = [json objectForKey:@"e_id"];
+            NSString* sec_id = [json objectForKey:@"sec_id"];
+            NSString* sec_name = [json objectForKey:@"sec_name"];
+            NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Section values (\"%@\",\"%@\",\"%@\");",e_id,sec_id,sec_name];
+            [db executeUpdate:sql];
+        }
     }
+    
+    return @"Success";
 }
--(void)importComment:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id{
+-(NSString*)importComment:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
     
@@ -163,23 +222,32 @@
         [mutableURLRequest setHTTPBody:dataJSON];
         
         //Commentテーブルをimportする
-        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:nil];
-        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-        
-        for( NSDictionary * json in jsonResponse )
-        {
-            NSString* sur_id = [json objectForKey:@"sur_id"];
-            NSString* q_id = [json objectForKey:@"q_id"];
-            NSString* qd_id = [json objectForKey:@"qd_id"];
-            NSString* e_id = [json objectForKey:@"e_id"];
-            NSString* comment = [json objectForKey:@"comment"];
-            NSString*   sql = [ NSString stringWithFormat :@"insert into Comment values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,comment];
-            [db executeUpdate:sql];
+        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }else{
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+            
+            for( NSDictionary * json in jsonResponse )
+            {
+                NSString* sur_id = [json objectForKey:@"sur_id"];
+                NSString* q_id = [json objectForKey:@"q_id"];
+                NSString* qd_id = [json objectForKey:@"qd_id"];
+                NSString* e_id = [json objectForKey:@"e_id"];
+                NSString* comment = [json objectForKey:@"comment"];
+                NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Comment values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,comment];
+                [db executeUpdate:sql];
+            }
         }
-        
     }
+    
+    return @"Success";
 }
--(void)importAnswer:(FMDatabase*) db and :(NSString*)e_id{
+-(NSString*)importAnswer:(FMDatabase*) db and :(NSString*)e_id{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
     
@@ -228,31 +296,38 @@
         [mutableURLRequest setHTTPBody:dataJSON];
         
         //Answerテーブルをimportする
-        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:nil];
-        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-        
-        for( NSDictionary * json in jsonResponse )
-        {
-            NSString* sur_id = [json objectForKey:@"sur_id"];
-            NSString* q_id = [json objectForKey:@"q_id"];
-            NSString* qd_id = [json objectForKey:@"qd_id"];
-            NSString* e_id = [json objectForKey:@"e_id"];
-            NSString* sec_id = [json objectForKey:@"sec_id"];
-            NSString* ans_date = [json objectForKey:@"ans_date"];
-            NSString* answerer = [json objectForKey:@"answerer"];
-            NSString* charge = [json objectForKey:@"charge"];
-            NSString* ans_cho = [json objectForKey:@"ans_cho"];
-            NSString* ans_str = [json objectForKey:@"ans_str"];
-            NSString* memo = [json objectForKey:@"memo"];
-            NSString*   sql = [ NSString stringWithFormat :@"insert into Answer values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,sec_id,ans_date,answerer,charge,ans_cho,ans_str,memo];
-            [db executeUpdate:sql];
+        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }else{
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+            
+            for( NSDictionary * json in jsonResponse )
+            {
+                NSString* sur_id = [json objectForKey:@"sur_id"];
+                NSString* q_id = [json objectForKey:@"q_id"];
+                NSString* qd_id = [json objectForKey:@"qd_id"];
+                NSString* e_id = [json objectForKey:@"e_id"];
+                NSString* sec_id = [json objectForKey:@"sec_id"];
+                NSString* ans_date = [json objectForKey:@"ans_date"];
+                NSString* answerer = [json objectForKey:@"answerer"];
+                NSString* charge = [json objectForKey:@"charge"];
+                NSString* ans_cho = [json objectForKey:@"ans_cho"];
+                NSString* ans_str = [json objectForKey:@"ans_str"];
+                NSString* memo = [json objectForKey:@"memo"];
+                NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Answer values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,sec_id,ans_date,answerer,charge,ans_cho,ans_str,memo];
+                [db executeUpdate:sql];
+            }
         }
-        
     }
     
+    return @"Success";
 }
--(void)importTemporary:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id and
-                      :(NSString*)sec_id and :(NSString*)ans_date{
+-(NSString*)importTemporary:(FMDatabase*) db and :(NSString*)sur_id and :(NSString*)e_id and :(NSString*)sec_id and :(NSString*)ans_date{
     //配列の初期化
     NSMutableArray *mar = [[NSMutableArray alloc] init];
     
@@ -303,41 +378,35 @@
         [mutableURLRequest setHTTPBody:dataJSON];
      
         //Temporaryテーブルにimportする
-        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:nil];
-        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-        
-        for( NSDictionary * json in jsonResponse )
-        {
-            NSString* sur_id = [json objectForKey:@"sur_id"];
-            NSString* q_id = [json objectForKey:@"q_id"];
-            NSString* qd_id = [json objectForKey:@"qd_id"];
-            NSString* e_id = [json objectForKey:@"e_id"];
-            NSString* sec_id = [json objectForKey:@"sec_id"];
-            NSString* ans_date = [json objectForKey:@"ans_date"];
-            NSString* answerer = [json objectForKey:@"answerer"];
-            NSString* charge = [json objectForKey:@"charge"];
-            NSString* ans_cho = [json objectForKey:@"ans_cho"];
-            NSString* ans_str = [json objectForKey:@"ans_str"];
-            NSString* memo = [json objectForKey:@"memo"];
-            NSString*   sql = [ NSString stringWithFormat :@"insert into Temporary values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,sec_id,ans_date,answerer,charge,ans_cho,ans_str,memo];
-            [db executeUpdate:sql];
-        }
-
-    }
-}
-@end
-
-@implementation UIAlertView (NSError)
--(id)initWithError:(NSError *)error {
-    self = [super init];
-    if (self) {
-        self.title = [error localizedDescription];
-        self.message = [[NSArray arrayWithObjects:[error localizedFailureReason], [error localizedRecoverySuggestion], nil] componentsJoinedByString:@"\n"];
-        NSArray* optionTitles = [error localizedRecoveryOptions];
-        for (NSString *title in optionTitles) {
-            [self addButtonWithTitle:title];
+        NSData *jsonData = [NSURLConnection sendSynchronousRequest:mutableURLRequest returningResponse:nil error:&error];
+        if (error) {
+            // error処理
+            if (error.code == 256 || error.code == -1009) {
+                return @"NetworkError";
+            }
+            return @"Error";
+        }else{
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+            
+            for( NSDictionary * json in jsonResponse )
+            {
+                NSString* sur_id = [json objectForKey:@"sur_id"];
+                NSString* q_id = [json objectForKey:@"q_id"];
+                NSString* qd_id = [json objectForKey:@"qd_id"];
+                NSString* e_id = [json objectForKey:@"e_id"];
+                NSString* sec_id = [json objectForKey:@"sec_id"];
+                NSString* ans_date = [json objectForKey:@"ans_date"];
+                NSString* answerer = [json objectForKey:@"answerer"];
+                NSString* charge = [json objectForKey:@"charge"];
+                NSString* ans_cho = [json objectForKey:@"ans_cho"];
+                NSString* ans_str = [json objectForKey:@"ans_str"];
+                NSString* memo = [json objectForKey:@"memo"];
+                NSString*   sql = [ NSString stringWithFormat :@"insert or replace into Temporary values (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\");",sur_id,q_id,qd_id,e_id,sec_id,ans_date,answerer,charge,ans_cho,ans_str,memo];
+                [db executeUpdate:sql];
+            }
         }
     }
-    return self;
+    
+    return @"Success";
 }
 @end

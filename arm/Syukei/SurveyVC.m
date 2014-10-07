@@ -115,9 +115,29 @@
     
     ImportTable *importtable = [ImportTable alloc];
     
-    [importtable importComment:db and :survey.sur_id and :enterprise.e_id];
+    NSString* setflg1 = [importtable importComment:db and :survey.sur_id and :enterprise.e_id];
     
     [db close];
+    
+    if([setflg1 isEqualToString:@"NetworkError"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    if([setflg1 isEqualToString:@"Error"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
     
     //セルをタップした処理
     mgVC *mgvc = [self.storyboard instantiateViewControllerWithIdentifier:@"mg"];
