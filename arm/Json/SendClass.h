@@ -10,13 +10,13 @@
 #import "FMDatabase.h"
 
 @interface SendClass : NSObject<NSURLSessionDataDelegate>
-- (void)sendAnswerData:(NSData *)data;
-- (void)sendAnswer:(FMDatabase*)db;
-- (void)sendCommentData:(NSData *)data;
-- (void)sendComment:(NSString*)sur_id and :(NSString*)q_id and
+- (NSString*)sendAnswerData:(NSData *)data;
+- (NSString*)sendAnswer:(FMDatabase*)db;
+- (NSString*)sendCommentData:(NSData *)data;
+- (NSString*)sendComment:(NSString*)sur_id and :(NSString*)q_id and
                    :(NSString*)qd_id and :(NSString*)e_id and :(NSString*)comment;
-- (void)sendEnterpriseData:(NSData *)data;
-- (void)sendEnterprise:(NSString*)e_id and :(NSString*)e_name and :(NSString*)division;
-- (void)sendSectionData:(NSData *)data;
-- (void)sendSection:(NSString*)e_id and :(NSString*)sec_id and :(NSString*)sec_name;
+- (NSString*)sendEnterpriseData:(NSData *)data;
+- (NSString*)sendEnterprise:(NSString*)e_id and :(NSString*)e_name and :(NSString*)division;
+- (NSString*)sendSectionData:(NSData *)data;
+- (NSString*)sendSection:(NSString*)e_id and :(NSString*)sec_id and :(NSString*)sec_name;
 @end

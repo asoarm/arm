@@ -192,6 +192,10 @@
 }
 
 - (IBAction)next:(id)sender {
+    [self pushNext];
+}
+
+- (void)pushNext{
     
     //入力されていて次の質問がある場合の処理
     if(i < max-1 && !([answer_str.text isEqual:@""]) && !(answer_str.text == nil))
@@ -255,7 +259,7 @@
             surveyViewStringController.max = max;
             [self presentViewController:surveyViewStringController animated:YES completion:nil];
         }
-    //入力されていて次の質問がない場合の処理
+        //入力されていて次の質問がない場合の処理
     }else if(i == max-1 && !([answer_str.text isEqual:@""]) && !(answer_str.text == nil)){
         //仮テーブルからAnswerテーブルへ
         
@@ -294,13 +298,35 @@
         
         //結果をサーバーに送信
         SendClass *sendclass = [SendClass alloc];
-        [sendclass sendAnswer:db];
-
+        NSString *setflg1 = [sendclass sendAnswer:db];
+        
         //くるくる非表示
         [SVProgressHUD dismiss];
         
         [db close];
         
+        //ネットワークエラー
+        if([setflg1 isEqualToString:@"NetworkError"]){
+            UIAlertView *alertView =
+            [[UIAlertView alloc]
+             initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+             cancelButtonTitle:@"キャンセル" otherButtonTitles:@"再試行する", nil];
+            [alertView show];
+            
+            return;
+        }
+        //その他のエラー
+        if([setflg1 isEqualToString:@"Error"]){
+            UIAlertView *alertView =
+            [[UIAlertView alloc]
+             initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+             cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+            [alertView show];
+            
+            return;
+        }
+        
+        //画面遷移
         EndViewController *endViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EndView"];
         [self presentViewController:endViewController animated:YES completion:nil];
     }else if(_flg){
@@ -439,4 +465,17 @@
     [db close];
 }
 
+#pragma mark - UIAlertViewDelegate methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            //１番目のボタンが押されたときの処理を記述する
+            break;
+        case 1:
+            //２番目のボタンが押されたときの処理を記述する
+            [self pushNext];
+            break;
+    }
+}
 @end

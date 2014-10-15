@@ -121,7 +121,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Q5g-bs-Yyw" kind="modal" id="2Jw-PK-iks"/>
+                                    <action selector="pushSyukei:" destination="2" eventType="touchUpInside" id="uhu-j3-KKm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -133,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162" y="-1139"/>
+            <point key="canvasLocation" x="-1200" y="-1107"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7OU-e1-cu6">
@@ -1171,6 +1171,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jjo-xh-qqe"/>
+        <segue reference="Zuz-Jh-Tdj"/>
     </inferredMetricsTieBreakers>
 </document>

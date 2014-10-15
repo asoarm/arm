@@ -14,8 +14,11 @@
 #import "SVProgressHUD.h"
 #import "EnterpriseDivisionViewController.h"
 #import "DivisionViewController.h"
+#import "SyukeiDivisionViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController (){
+    NSString *strflg;
+}
 @property (nonatomic, retain) SettingsController *settingsController;
 @end
 
@@ -142,87 +145,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)pushEnterprise:(id)sender {
-    //くるくる表示
-    [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
-    
-    //データベース作成・接続
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    //サーバーからデータを内部DBへ入れる
-    ImportTable *importtable = [ImportTable alloc];
-    [importtable importEnterprise:db];
-    [importtable importSection:db];
-    
-    [db close];
-    
-    //くるくる非表示
-    [SVProgressHUD dismiss];
-    
-    //画面遷移
-    EnterpriseDivisionViewController *enterpriseDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EnterpriseDivisionView"];
-    [self presentViewController:enterpriseDivisionViewController animated:YES completion:nil];
-    
-}
 
 - (IBAction)pushSurvey:(id)sender {
-    //くるくる表示
-    [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
-    
-    //データベース作成・接続
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
-    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
-    if(!success){
-        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
-        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-    }
-    
-    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-    if(![db open])
-    {
-        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
-    }
-    
-    [db setShouldCacheStatements:YES];
-    
-    //サーバーからデータを内部DBへ入れる
-    ImportTable *importtable = [ImportTable alloc];
-    [importtable importSurvey:db];
-    [importtable importQuestion:db];
-    [importtable importQuestionDetail:db];
-    [importtable importChoice:db];
-    [importtable importEnterprise:db];
-    [importtable importSection:db];
-    
-    [db close];
-    
-    //くるくる非表示
-    [SVProgressHUD dismiss];
-    
-    //画面遷移
-    DivisionViewController *enterpriseDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DivisionView"];
-    [self presentViewController:enterpriseDivisionViewController animated:YES completion:nil];
+    [self importSurvey];
+}
+
+- (IBAction)pushSyukei:(id)sender {
+    [self importSyukei];
+}
+
+- (IBAction)pushEnterprise:(id)sender {
+    [self importEnterprise];
 }
 
 - (IBAction)data:(id)sender
@@ -232,5 +165,221 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_settingsController];
     //_settingControllerへ画面遷移
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+-(void)showKurukuru{
+    //くるくる表示
+    [SVProgressHUD showWithMaskType: SVProgressHUDMaskTypeBlack];
+}
+-(void)dismissKurukuru{
+    //くるくる非表示
+    [SVProgressHUD dismiss];
+}
+
+
+-(void)importSurvey{
+    strflg = @"Survey";
+    
+    [self showKurukuru];
+    
+    //データベース作成・接続
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //サーバーからデータを内部DBへ入れる
+    ImportTable *importTable = [ImportTable alloc];
+    NSString* setflg1 = [importTable importEnterprise:db];
+    NSString* setflg2 = [importTable importSection:db];
+    NSString* setflg3 = [importTable importSurvey:db];
+    NSString* setflg4 = [importTable importQuestion:db];
+    NSString* setflg5 = [importTable importChoice:db];
+    NSString* setflg6 = [importTable importQuestionDetail:db];
+    
+    [db close];
+    
+    [self dismissKurukuru];
+    
+    if([setflg1 isEqualToString:@"NetworkError"] || [setflg2 isEqualToString:@"NetworkError"] || [setflg3 isEqualToString:@"NetworkError"] || [setflg4 isEqualToString:@"NetworkError"] || [setflg5 isEqualToString:@"NetworkError"] || [setflg6 isEqualToString:@"NetworkError"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+         cancelButtonTitle:@"キャンセル" otherButtonTitles:@"再試行する", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    if([setflg1 isEqualToString:@"Error"] || [setflg2 isEqualToString:@"Error"] || [setflg3 isEqualToString:@"Error"] || [setflg4 isEqualToString:@"Error"] || [setflg5 isEqualToString:@"Error"] || [setflg6 isEqualToString:@"Error"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    //画面遷移
+    DivisionViewController *enterpriseDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DivisionView"];
+    [self presentViewController:enterpriseDivisionViewController animated:YES completion:nil];
+}
+
+-(void)importSyukei{
+    strflg = @"Syukei";
+    
+    [self showKurukuru];
+    
+    //データベース作成・接続
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //サーバーからデータを内部DBへ入れる
+    ImportTable *importTable = [ImportTable alloc];
+    
+    NSString* setflg1 = [importTable importEnterprise:db];
+    NSString* setflg2 = [importTable importSection:db];
+    NSString* setflg3 = [importTable importSurvey:db];
+    NSString* setflg4 = [importTable importQuestion:db];
+    NSString* setflg5 = [importTable importChoice:db];
+    NSString* setflg6 = [importTable importQuestionDetail:db];
+    
+    [db close];
+    
+    [self dismissKurukuru];
+    
+    if([setflg1 isEqualToString:@"NetworkError"] || [setflg2 isEqualToString:@"NetworkError"] || [setflg3 isEqualToString:@"NetworkError"] || [setflg4 isEqualToString:@"NetworkError"] || [setflg5 isEqualToString:@"NetworkError"] || [setflg6 isEqualToString:@"NetworkError"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+         cancelButtonTitle:@"キャンセル" otherButtonTitles:@"再試行する", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    if([setflg1 isEqualToString:@"Error"] || [setflg2 isEqualToString:@"Error"] || [setflg3 isEqualToString:@"Error"] || [setflg4 isEqualToString:@"Error"] || [setflg5 isEqualToString:@"Error"] || [setflg6 isEqualToString:@"Error"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    //画面遷移
+    SyukeiDivisionViewController *syukeiDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SyukeiDivisionView"];
+    [self presentViewController:syukeiDivisionViewController animated:YES completion:nil];
+}
+
+-(void)importEnterprise{
+    strflg = @"Enterprise";
+    
+    [self showKurukuru];
+    
+    //データベース作成・接続
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"arm.db"];
+    BOOL success = [fileManager fileExistsAtPath:writableDBPath];
+    if(!success){
+        NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"arm.db"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    }
+    
+    FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    //サーバーからデータを内部DBへ入れる
+    ImportTable *importTable =[ImportTable alloc];
+    NSString* setflg1 = [importTable importEnterprise:db];
+    NSString* setflg2 = [importTable importSection:db];
+    
+    [db close];
+    
+    [self dismissKurukuru];
+    
+    if([setflg1 isEqualToString:@"NetworkError"] || [setflg2 isEqualToString:@"NetworkError"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"ネットワークエラーが発生しました" message:@"ネットワークに接続できません\nネットワークの接続を確認して再試行してください" delegate:self
+         cancelButtonTitle:@"キャンセル" otherButtonTitles:@"再試行する", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    if([setflg1 isEqualToString:@"Error"] || [setflg2 isEqualToString:@"Error"]){
+        UIAlertView *alertView =
+        [[UIAlertView alloc]
+         initWithTitle:@"エラーが発生しました" message:@"原因不明のエラー" delegate:self
+         cancelButtonTitle:nil otherButtonTitles:@"確認", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    //画面遷移
+    EnterpriseDivisionViewController *enterpriseDivisionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EnterpriseDivisionView"];
+    [self presentViewController:enterpriseDivisionViewController animated:YES completion:nil];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            //１番目のボタンが押されたときの処理を記述する
+            break;
+        case 1:
+            //２番目のボタンが押されたときの処理を記述する
+            if([strflg  isEqual: @"Survey"]){
+                [self importSurvey];
+            }else if([strflg  isEqual: @"Syukei"]){
+                [self importSyukei];
+            }else if([strflg  isEqual: @"Enterprise"]){
+                [self importEnterprise];
+            }
+            break;
+    }
 }
 @end
