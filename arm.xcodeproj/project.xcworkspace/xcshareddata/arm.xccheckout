@@ -14,7 +14,7 @@
 		<string>https://github.com/asoarm/arm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>arm.xcodeproj/project.xcworkspace</string>
+	<string>arm.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>34FA6E8DC5245DD546E190C403F7EBBA78AA194C</key>

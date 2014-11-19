@@ -290,11 +290,11 @@
 
 		[cell.contentView addSubview:label];
 		
-		// セパレータ
+//		// セパレータ
 		float right = [self leftPositionOfColomnNumber1:i+1];
-		UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(right,0,1,[[height_cell objectAtIndex:indexPath.row] floatValue])];
-		separator.backgroundColor = [UIColor lightGrayColor];
-		[cell.contentView addSubview:separator];
+        UIView *tableSeparator = [[UIView alloc] initWithFrame:CGRectMake(right,0,1,self.tableView.bounds.size.height)];
+        tableSeparator.backgroundColor = [UIColor lightGrayColor];
+        [cell.contentView addSubview:tableSeparator];
 	}
     return cell;
 }

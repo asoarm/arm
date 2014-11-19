@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
+        <deployment identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Section View Controller-->
@@ -14,7 +14,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="seccell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="seccell" id="6Sh-A4-roS">
                                 <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
@@ -37,7 +36,7 @@
             </objects>
             <point key="canvasLocation" x="2788" y="-3704"/>
         </scene>
-        <!--Administration Master Table View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="Llb-NK-uqd">
             <objects>
                 <tableViewController storyboardIdentifier="AdministrationMaster" id="dgu-RW-kmY" customClass="AdministrationMasterTableViewController" sceneMemberID="viewController">
@@ -45,7 +44,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="YeS-vL-Ldq">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="O2W-mg-lZt">
@@ -126,7 +124,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bpm-zt-QQ1"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -292,7 +289,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -313,7 +309,7 @@
             </objects>
             <point key="canvasLocation" x="3713" y="284"/>
         </scene>
-        <!--Administration View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="dcR-4P-vyw">
             <objects>
                 <tableViewController id="7CB-Ul-eVg" customClass="AdministrationViewController" sceneMemberID="viewController">
@@ -321,7 +317,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="6wl-1m-oRX">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="B3M-8k-hwf">
@@ -389,7 +384,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="c7m-VE-pr7"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -406,7 +400,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outlet property="dataSource" destination="ZH2-FT-HQr" id="mZv-Ea-Luq"/>
                             <outlet property="delegate" destination="ZH2-FT-HQr" id="sRY-BO-X4c"/>
@@ -426,7 +419,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outlet property="dataSource" destination="tV9-5c-D9I" id="eDo-Ua-j2n"/>
                             <outlet property="delegate" destination="tV9-5c-D9I" id="475-7B-94W"/>
@@ -484,7 +476,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -530,7 +521,7 @@
             </objects>
             <point key="canvasLocation" x="2500" y="-1617"/>
         </scene>
-        <!--Private View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="Lqe-8e-CbK">
             <objects>
                 <tableViewController id="cuq-sA-2f7" customClass="PrivateViewController" sceneMemberID="viewController">
@@ -538,7 +529,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="itp-l3-VQv">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="gx7-vM-oP5">
@@ -621,7 +611,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -667,7 +656,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
@@ -727,7 +715,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="BcM-eZ-67i"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -768,7 +755,7 @@
             </objects>
             <point key="canvasLocation" x="-1852" y="1108"/>
         </scene>
-        <!--Administration Enterprise View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="Ahs-IS-lhA">
             <objects>
                 <tableViewController storyboardIdentifier="AdministrationEnterprise" id="mR3-r5-pRS" customClass="AdministrationEnterpriseViewController" sceneMemberID="viewController">
@@ -776,7 +763,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="k6k-Ha-t6U">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="Sec-CY-qIj">
@@ -791,7 +777,7 @@
             </objects>
             <point key="canvasLocation" x="-567" y="155"/>
         </scene>
-        <!--Private Enterprise View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="GPY-6m-93S">
             <objects>
                 <tableViewController storyboardIdentifier="PrivateEnterprise" id="NfG-zV-G9m" customClass="PrivateEnterpriseViewController" sceneMemberID="viewController">
@@ -799,7 +785,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="b6Z-uR-f6s">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="IZV-Pu-KSb">
@@ -822,7 +807,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outlet property="dataSource" destination="6BO-tp-3rD" id="LHR-vQ-Lbf"/>
                             <outlet property="delegate" destination="6BO-tp-3rD" id="YvG-zN-ALC"/>
@@ -872,7 +856,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
@@ -888,7 +871,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outlet property="dataSource" destination="Frv-AZ-eka" id="kF9-af-gtT"/>
                             <outlet property="delegate" destination="Frv-AZ-eka" id="D0r-mM-5H1"/>
@@ -941,7 +923,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="1Yr-3H-QVO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1013,7 +994,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -1036,7 +1016,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <connections>
                             <outlet property="dataSource" destination="Bzc-zN-s91" id="BL4-Xd-bxo"/>
                             <outlet property="delegate" destination="Bzc-zN-s91" id="vhY-LQ-6oH"/>
@@ -1056,7 +1035,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
@@ -1116,7 +1094,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="pbo-5s-W2A"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1125,7 +1102,7 @@
             </objects>
             <point key="canvasLocation" x="-1222" y="-2171"/>
         </scene>
-        <!--Private Master Table View Controller - Root View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="TFO-4q-d5W">
             <objects>
                 <tableViewController storyboardIdentifier="PrivateMaster" id="g5j-6J-eaD" customClass="PrivateMasterTableViewController" sceneMemberID="viewController">
@@ -1133,7 +1110,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="bxZ-W5-NuX">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="wCP-aR-Z6z">
@@ -1171,6 +1147,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Zuz-Jh-Tdj"/>
+        <segue reference="V9Q-dX-lj8"/>
     </inferredMetricsTieBreakers>
 </document>
