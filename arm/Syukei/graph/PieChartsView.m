@@ -33,8 +33,8 @@ static inline float radians(double degrees) { return degrees * M_PI / 180.0; }
 - (void)drawRect:(CGRect)rect {
     
     // 中心座標の取得
-    CGFloat x = CGRectGetWidth(self.bounds) / 2.8;
-    CGFloat y = CGRectGetHeight(self.bounds) / 3.1;
+    CGFloat x = CGRectGetWidth(self.bounds) / 4.2;
+    CGFloat y = CGRectGetHeight(self.bounds) / 2.4;
     
     // 半径
     CGFloat radius = 130.0;
